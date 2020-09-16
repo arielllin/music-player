@@ -22,10 +22,10 @@ export default {
     }
   },
   computed: {
-    iconName () {
+    iconName() {
       return document.getElementById(`icon-${this.iconClass}`) ? `#icon-${this.iconClass}` : `#icon-${this.defaultIconClass}`
     },
-    svgClass () {
+    svgClass() {
       if (this.className) {
         return 'svg-icon ' + this.className
       } else {

@@ -4,34 +4,45 @@
       <div class="title-main">playlist</div>
       <div class="title-sub">TOP 10 SONGS</div>
     </div>
-    <template
+    <div
       v-for="(item, index) in topTenSongs"
+      :key="item.index"
+      class="home-wrap"
+      :class="[{ 'last-background': lastCurrent === index }]"
+      :style="{ backgroundImage: 'url(' + item.img + ')' }"
+    />
+    <div
+      v-for="(item, index) in topTenSongs"
+      :key="item.index"
+      class="default default-title"
+      :class="[`title-${index}`, { 'title-hide': !isCurrent(index) }]"
+    >
+      {{ item.singer }}
+    </div>
+    <div
+      class="default default-index"
     >
       <div
+        v-for="(item, index) in topTenSongs"
         :key="item.index"
-        class="home-wrap"
-        :class="{ 'background-hide': index !== 0 }"
-        :style="{ backgroundImage: 'url(' + item.img + ')' }"
-      />
-      <div
-        :key="item.index"
-        class="default-title"
-        :class="[`title-${index}`, { 'title-hide': index !== 0 }]"
+        :class="[{ 'is-slected': isCurrent(index) }, { 'index': ! isCurrent(index) }]"
+        @click="onChangeCurrent(index)"
       >
-        {{ item.singer }}
+        {{ `0${index + 1}` }}
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'Home',
   components: {
   },
   data() {
     return {
+      current: 0,
+      lastCurrent: null,
       topTenSongs: [
         { singer: 'Bob Marley', img: require('@/assets/images/Bob-Marley@2x.png') },
         { singer: 'michael', img: require('@/assets/images/michael-jackson@2x.png') },
@@ -42,6 +53,13 @@ export default {
   computed: {
   },
   methods: {
+    isCurrent(index) {
+      return this.current === index
+    },
+    onChangeCurrent(index) {
+      this.lastCurrent = this.current
+      this.current = index
+    }
   }
 }
 </script>
@@ -52,19 +70,36 @@ export default {
   height 100vh
   &-wrap
     height 100%
-    background #08224B 0% 0% no-repeat padding-box
     background-size cover
+    background-repeat no-repeat
+
+  .mask
+    width 100%
+    height 100%
+    background-color #08224b
     opacity 0.9
 
-  .default-title
+  .default
     position absolute
-    bottom 230px
-    left 135px
-    font-size 163px
     text-align left
     letter-spacing 0px
     color #fff
     opacity 0.9
+
+  .default-title
+    bottom 230px
+    left 135px
+    font-size 163px
+
+  .default-index
+    display flex
+    align-items center
+    top 70%
+    right 10%
+    font-size 40px
+    .index
+      padding 0 5px
+      opacity 0.2
 
   .title
     z-index 100
@@ -82,8 +117,15 @@ export default {
       font-size 25px
       letter-spacing 2.5px
 
+.is-slected
+  margin 0 -30px
+  font-size 150px
+
 .background-hide
   position absolute
+
+.last-background
+  background-position left
 
 .title-hide
   opacity 0!important
