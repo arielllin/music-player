@@ -8,14 +8,18 @@
       v-for="(item, index) in topTenSongs"
       :key="item.index"
       class="home-wrap"
-      :class="[{ 'last-background': lastCurrent === index }]"
+      :class="{
+        'home-wrap-default': current === index,
+        'background-hide': current !== index && lastCurrent !== index,
+        'last-background': lastCurrent === index
+      }"
       :style="{ backgroundImage: 'url(' + item.img + ')' }"
     />
     <div
       v-for="(item, index) in topTenSongs"
       :key="item.index"
       class="default default-title"
-      :class="[`title-${index}`, { 'title-hide': !isCurrent(index) }]"
+      :class="[`title-${index}`, { 'title-hide': !isCurrent(index), 'title-selected': isCurrent(index), 'title-last': lastCurrent === index } ]"
     >
       {{ item.singer }}
     </div>
@@ -25,7 +29,12 @@
       <div
         v-for="(item, index) in topTenSongs"
         :key="item.index"
-        :class="[{ 'is-slected': isCurrent(index) }, { 'index': ! isCurrent(index) }]"
+        :class="{
+          'is-slected': isCurrent(index),
+          'last-slected': lastCurrent === index,
+          'index': ! isCurrent(index)
+        }"
+
         @click="onChangeCurrent(index)"
       >
         {{ `0${index + 1}` }}
@@ -35,6 +44,8 @@
 </template>
 
 <script>
+import gsap from 'gsap'
+
 export default {
   name: 'Home',
   components: {
@@ -52,13 +63,77 @@ export default {
   },
   computed: {
   },
+  watch: {
+  },
+  mounted() {
+    gsap.to('.home-wrap-default', {
+      duration: 2,
+      width: '100%',
+      ease: 'power4.out'
+    })
+    gsap.to('.title-selected', {
+      duration: 1,
+      opacity: 0.9
+    })
+    gsap.to('.is-slected', {
+      duration: 1,
+      opacity: 0.9,
+      'font-size': '150px',
+      ease: 'power4.out'
+    })
+    gsap.to('.index', {
+      duration: 1,
+      opacity: 0.2,
+      'font-size': '40px',
+      ease: 'power4.out'
+    })
+  },
   methods: {
     isCurrent(index) {
       return this.current === index
     },
     onChangeCurrent(index) {
+      if (this.current === index) return
+
       this.lastCurrent = this.current
       this.current = index
+      this.$nextTick(() => {
+        this.changeBackground()
+      })
+    },
+    changeBackground() {
+      gsap.to('.home-wrap-default', {
+        duration: 2,
+        width: '100%',
+        ease: 'power4.out'
+      })
+      gsap.to('.last-background', {
+        duration: 2,
+        width: '0%',
+        ease: 'power4.out'
+      })
+
+      gsap.to('.title-last', {
+        duration: 1,
+        opacity: 0
+      })
+      gsap.to('.title-selected', {
+        duration: 1,
+        opacity: 0.9
+      })
+
+      gsap.to('.is-slected', {
+        duration: 1,
+        opacity: 0.9,
+        'font-size': '150px',
+        ease: 'power4.out'
+      })
+      gsap.to('.last-slected', {
+        duration: 1,
+        opacity: 0.2,
+        'font-size': '40px',
+        ease: 'power4.out'
+      })
     }
   }
 }
@@ -72,6 +147,10 @@ export default {
     height 100%
     background-size cover
     background-repeat no-repeat
+    background-attachment fixed
+    &-default
+      width 0%
+      position absolute
 
   .mask
     width 100%
@@ -84,14 +163,17 @@ export default {
     text-align left
     letter-spacing 0px
     color #fff
-    opacity 0.9
 
   .default-title
     bottom 230px
     left 135px
     font-size 163px
 
+  .title-selected
+    opacity 0
+
   .default-index
+    height 210px
     display flex
     align-items center
     top 70%
@@ -120,13 +202,19 @@ export default {
 .is-slected
   margin 0 -30px
   font-size 150px
+  opacity 0
 
 .background-hide
   position absolute
 
 .last-background
-  background-position left
+  float right
+
+.last-slected
+  opacity 0.2
+  font-size 40px
 
 .title-hide
-  opacity 0!important
+  opacity 0
+
 </style>
