@@ -1,43 +1,47 @@
 <template>
   <div class="home">
-    <div class="title">
-      <div class="title-main">playlist</div>
-      <div class="title-sub">TOP 10 SONGS</div>
+    <div class="playlist">
+      <div class="playlist-main">playlist</div>
+      <div class="playlist-sub">TOP 10 SONGS</div>
     </div>
     <div
       v-for="(item, index) in topTenSongs"
       :key="item.index"
-      class="home-wrap"
+      class="background"
       :class="{
-        'home-wrap-default': current === index,
+        'background-slected': current === index,
         'background-hide': current !== index && lastCurrent !== index,
-        'last-background': lastCurrent === index
+        'background-last-slected': lastCurrent === index
       }"
       :style="{ backgroundImage: 'url(' + item.img + ')' }"
     />
     <div
       v-for="(item, index) in topTenSongs"
       :key="item.index"
-      class="default default-title"
-      :class="[`title-${index}`, { 'title-hide': !isCurrent(index), 'title-selected': isCurrent(index), 'title-last': lastCurrent === index } ]"
+      class="title"
+      :class="{
+        'title-hide': !isCurrent(index),
+        'title-selected': isCurrent(index),
+        'title-last-slected': lastCurrent === index
+      }"
     >
       {{ item.singer }}
     </div>
     <div
-      class="default default-index"
+      class="index"
     >
       <div
         v-for="(item, index) in topTenSongs"
         :key="item.index"
         :class="{
-          'is-slected': isCurrent(index),
-          'last-slected': lastCurrent === index,
-          'index': ! isCurrent(index)
+          'index-slected': isCurrent(index),
+          'index-last-slected': lastCurrent === index,
+          'index-non-slected': ! isCurrent(index)
         }"
 
         @click="onChangeCurrent(index)"
       >
-        {{ `0${index + 1}` }}
+        {{ showIndex(index) }}
       </div>
     </div>
   </div>
@@ -66,7 +70,7 @@ export default {
   watch: {
   },
   mounted() {
-    gsap.to('.home-wrap-default', {
+    gsap.to('.background-slected', {
       duration: 2,
       width: '100%',
       ease: 'power4.out'
@@ -75,13 +79,13 @@ export default {
       duration: 1,
       opacity: 0.9
     })
-    gsap.to('.is-slected', {
+    gsap.to('.index-slected', {
       duration: 1,
       opacity: 0.9,
       'font-size': '150px',
       ease: 'power4.out'
     })
-    gsap.to('.index', {
+    gsap.to('.index-non-slected', {
       duration: 1,
       opacity: 0.2,
       'font-size': '40px',
@@ -89,6 +93,9 @@ export default {
     })
   },
   methods: {
+    showIndex(index) {
+      return index === 10 ? 10 : `0${index + 1}`
+    },
     isCurrent(index) {
       return this.current === index
     },
@@ -102,18 +109,18 @@ export default {
       })
     },
     changeBackground() {
-      gsap.to('.home-wrap-default', {
+      gsap.to('.background-slected', {
         duration: 2,
         width: '100%',
         ease: 'power4.out'
       })
-      gsap.to('.last-background', {
+      gsap.to('.background-last-slected', {
         duration: 2,
         width: '0%',
         ease: 'power4.out'
       })
 
-      gsap.to('.title-last', {
+      gsap.to('.title-last-slected', {
         duration: 1,
         opacity: 0
       })
@@ -122,13 +129,19 @@ export default {
         opacity: 0.9
       })
 
-      gsap.to('.is-slected', {
+      gsap.to('.index-slected', {
         duration: 1,
         opacity: 0.9,
         'font-size': '150px',
         ease: 'power4.out'
       })
-      gsap.to('.last-slected', {
+      gsap.to('.index-last-slected', {
+        duration: 1,
+        opacity: 0.2,
+        'font-size': '40px',
+        ease: 'power4.out'
+      })
+      gsap.to('.index-non-slected', {
         duration: 1,
         opacity: 0.2,
         'font-size': '40px',
@@ -143,78 +156,71 @@ export default {
 .home
   width 100%
   height 100vh
-  &-wrap
-    height 100%
-    background-size cover
-    background-repeat no-repeat
-    background-attachment fixed
-    &-default
-      width 0%
-      position absolute
 
-  .mask
-    width 100%
-    height 100%
-    background-color #08224b
-    opacity 0.9
-
-  .default
+.background
+  height 100%
+  background-size cover
+  background-repeat no-repeat
+  background-attachment fixed
+  &-slected
+    width 0%
     position absolute
-    text-align left
-    letter-spacing 0px
-    color #fff
+  &-hide
+    position absolute
+  &-last-slected
+    float right
 
-  .default-title
-    bottom 230px
-    left 135px
-    font-size 163px
+.index
+  position absolute
+  text-align right
+  letter-spacing 0px
+  color #fff
+  height 210px
+  display flex
+  align-items center
+  top 70%
+  right 10%
+  &-slected
+    margin 0 -30px
+    font-size 150px
+  &-last-slected
+    opacity 0.2
+  &-non-slected
+    padding 0 5px
+    opacity 0.2
 
-  .title-selected
+.title
+  position absolute
+  text-align left
+  letter-spacing 0px
+  color #fff
+  bottom 230px
+  left 135px
+  font-size 163px
+  &-selected
+    opacity 0
+  &-hide
     opacity 0
 
-  .default-index
-    height 210px
-    display flex
-    align-items center
-    top 70%
-    right 10%
-    font-size 40px
-    .index
-      padding 0 5px
-      opacity 0.2
-
-  .title
-    z-index 100
-    position absolute
-    color #fff
-    opacity 0.9
-    top 50%
-    right 10%
-    &-main
-      font-size 104px
-      letter-spacing 0px
-    &-sub
-      position relative
-      top -25px
-      font-size 25px
-      letter-spacing 2.5px
-
-.is-slected
-  margin 0 -30px
-  font-size 150px
-  opacity 0
-
-.background-hide
+.playlist
+  z-index 100
   position absolute
+  color #fff
+  opacity 0.9
+  top 50%
+  right 10%
+  &-main
+    font-size 104px
+    letter-spacing 0px
+  &-sub
+    position relative
+    top -25px
+    font-size 25px
+    letter-spacing 2.5px
 
-.last-background
-  float right
-
-.last-slected
-  opacity 0.2
-  font-size 40px
-
-.title-hide
-  opacity 0
-
+.mask
+  width 100%
+  height 100%
+  background-color #08224b
+  opacity 0.9
 </style>
