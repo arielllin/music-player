@@ -1,17 +1,13 @@
 <template>
   <div class="home">
-    <div class="playlist">
-      <div class="playlist-main">playlist</div>
-      <div class="playlist-sub">TOP 10 SONGS</div>
-    </div>
     <div
       v-for="(item, index) in topTenSongs"
       :key="item.index"
       class="background"
       :class="{
-        'background-slected': current === index,
-        'background-hide': current !== index && lastCurrent !== index,
-        'background-last-slected': lastCurrent === index
+        'background-slected': currentPage === index,
+        'background-hide': currentPage !== index && lastPage !== index,
+        'background-last-slected': lastPage === index
       }"
       :style="{ backgroundImage: 'url(' + item.img + ')' }"
     />
@@ -22,46 +18,62 @@
       :class="{
         'title-hide': !isCurrent(index),
         'title-selected': isCurrent(index),
-        'title-last-slected': lastCurrent === index
+        'title-last-slected': lastPage === index
       }"
     >
       {{ item.singer }}
-    </div>
-    <div
-      class="index"
-    >
-      <div
-        v-for="(item, index) in topTenSongs"
-        :key="item.index"
-        :class="{
-          'index-slected': isCurrent(index),
-          'index-last-slected': lastCurrent === index,
-          'index-non-slected': ! isCurrent(index)
-        }"
-
-        @click="onChangeCurrent(index)"
-      >
-        {{ showIndex(index) }}
+      <div class="info">
+        <span>Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+        <span>do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
+        <span>quis nostrud exercitation ullamco laboris nisi</span>
       </div>
     </div>
+    <div class="playlist">
+      <div class="playlist-main">playlist</div>
+      <div class="playlist-sub">TOP 10 SONGS</div>
+    </div>
+    <div class="listen-button">
+      LISTEN NOW
+      <svg-icon class="listen-button-svg" icon-class="play" />
+    </div>
+    <div class="footer-icons">
+      <svg-icon
+        v-for="(item, index) in svgIcons"
+        :key="index"
+        class="icon"
+        :icon-class="item"
+      />
+    </div>
+    <PageChanging
+      :index-table="topTenSongs"
+      :current-page="currentPage"
+      :last-page="lastPage"
+      @onChangeIndex="onChangeIndex"
+    />
   </div>
 </template>
 
 <script>
+import PageChanging from './components/PageChanging'
+
 import gsap from 'gsap'
 
 export default {
   name: 'Home',
   components: {
+    PageChanging
   },
   data() {
     return {
-      current: 0,
-      lastCurrent: null,
+      currentPage: 0,
+      lastPage: null,
       topTenSongs: [
         { singer: 'Bob Marley', img: require('@/assets/images/Bob-Marley@2x.png') },
         { singer: 'michael', img: require('@/assets/images/michael-jackson@2x.png') },
         { singer: 'beetles', img: require('@/assets/images/beetle@2x.png') }
+      ],
+      svgIcons: [
+        'soundcloud', 'spotify', 'youtube', 'apple', 'instagram', 'facebook', 'twitter'
       ]
     }
   },
@@ -79,31 +91,16 @@ export default {
       duration: 1,
       opacity: 0.9
     })
-    gsap.to('.index-slected', {
-      duration: 1,
-      opacity: 0.9,
-      'font-size': '150px',
-      ease: 'power4.out'
-    })
-    gsap.to('.index-non-slected', {
-      duration: 1,
-      opacity: 0.2,
-      'font-size': '40px',
-      ease: 'power4.out'
-    })
   },
   methods: {
-    showIndex(index) {
-      return index === 10 ? 10 : `0${index + 1}`
-    },
     isCurrent(index) {
-      return this.current === index
+      return this.currentPage === index
     },
-    onChangeCurrent(index) {
-      if (this.current === index) return
+    onChangeIndex(index) {
+      if (this.currentPage === index) return
 
-      this.lastCurrent = this.current
-      this.current = index
+      this.lastPage = this.currentPage
+      this.currentPage = index
       this.$nextTick(() => {
         this.changeBackground()
       })
@@ -128,25 +125,6 @@ export default {
         duration: 1,
         opacity: 0.9
       })
-
-      gsap.to('.index-slected', {
-        duration: 1,
-        opacity: 0.9,
-        'font-size': '150px',
-        ease: 'power4.out'
-      })
-      gsap.to('.index-last-slected', {
-        duration: 1,
-        opacity: 0.2,
-        'font-size': '40px',
-        ease: 'power4.out'
-      })
-      gsap.to('.index-non-slected', {
-        duration: 1,
-        opacity: 0.2,
-        'font-size': '40px',
-        ease: 'power4.out'
-      })
     }
   }
 }
@@ -162,6 +140,8 @@ export default {
   background-size cover
   background-repeat no-repeat
   background-attachment fixed
+  background-color #08224b
+  background-blend-mode screen
   &-slected
     width 0%
     position absolute
@@ -169,25 +149,6 @@ export default {
     position absolute
   &-last-slected
     float right
-
-.index
-  position absolute
-  text-align right
-  letter-spacing 0px
-  color #fff
-  height 210px
-  display flex
-  align-items center
-  top 70%
-  right 10%
-  &-slected
-    margin 0 -30px
-    font-size 150px
-  &-last-slected
-    opacity 0.2
-  &-non-slected
-    padding 0 5px
-    opacity 0.2
 
 .title
   position absolute
@@ -203,10 +164,10 @@ export default {
     opacity 0
 
 .playlist
-  z-index 100
   position absolute
   color #fff
   opacity 0.9
+  transform: translateY(-50%)
   top 50%
   right 10%
   &-main
@@ -218,9 +179,41 @@ export default {
     font-size 25px
     letter-spacing 2.5px
 
-.mask
-  width 100%
-  height 100%
-  background-color #08224b
-  opacity 0.9
+.listen-button
+  background-color #929fbd
+  padding 26px 63px 31px 63px
+  border-radius 45px
+  position absolute
+  color #fff
+  font-size 25px
+  letter-spacing 2.5px
+  top 60%
+  right 10%
+  &-svg
+    margin-left 10px
+
+.info
+  display flex
+  flex-direction column
+  width 650px
+  font-size 16px
+  color #fff
+  text-align left
+  opacity 0.7
+  letter-spacing 2.5px
+  margin-top -25px
+  span
+    padding-bottom 3px
+
+.footer-icons
+  display flex
+  justify-content space-between
+  align-items center
+  position absolute
+  transform: translate(-50%)
+  left 50%
+  bottom 10%
+  width 400px
+  height 50px
+  font-size 24px
 </style>
