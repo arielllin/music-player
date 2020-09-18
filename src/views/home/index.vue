@@ -181,6 +181,7 @@ export default {
 
 .listen-button
   background-color #929fbd
+  opacity 0.9
   padding 26px 63px 31px 63px
   border-radius 45px
   position absolute
