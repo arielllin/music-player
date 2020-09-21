@@ -79,9 +79,9 @@ export default {
     width 146px
     height 130px
     background-color #fff
-    border-top-left-radius 20% 66%
-    border-bottom-right-radius 66% 20%
-    border-bottom-left-radius 140%
+    border-top-left-radius 3% 10%
+    border-bottom-right-radius 10% 3%
+    border-bottom-left-radius 100%
 
 .bars-icon
   padding 44px 44px 66px 66px

@@ -32,7 +32,7 @@
       <div class="playlist-main">playlist</div>
       <div class="playlist-sub">TOP 10 SONGS</div>
     </div>
-    <div class="listen-button">
+    <div class="listen-button" @click="onClickAlbum">
       LISTEN NOW
       <svg-icon class="listen-button-svg" icon-class="play" />
     </div>
@@ -50,6 +50,7 @@
       :last-page="lastPage"
       @onChangeIndex="onChangeIndex"
     />
+    <div class="page-change" />
   </div>
 </template>
 
@@ -125,6 +126,15 @@ export default {
         duration: 1,
         opacity: 0.9
       })
+    },
+    onClickAlbum() {
+      gsap.to('.page-change', {
+        duration: 3,
+        'border-radius': '56%',
+        transform: 'scale(3000, 3000) translate(-5%)',
+        margin: '0 auto',
+        ease: 'power4.out'
+      })
     }
   }
 }
@@ -134,6 +144,8 @@ export default {
 .home
   width 100%
   height 100vh
+  position relative
+  overflow hidden
 
 .background
   height 100%
@@ -211,10 +223,20 @@ export default {
   justify-content space-between
   align-items center
   position absolute
-  transform: translate(-50%)
+  transform translate(-50%)
   left 50%
   bottom 10%
   width 400px
   height 50px
   font-size 24px
+
+.page-change
+  width 1px
+  height 1px
+  background-color #fff
+  border-radius 50%
+  position absolute
+  left 50%
+  bottom 10%
+  z-index 2000
 </style>
