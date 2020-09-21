@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Menu :show-bars="showBars" @mouseover="mouseOver" @mouseout="mouseOut">
+    <Menu id="menu" :show-bars="showBars" @mouseover="mouseOver" @mouseout="mouseOut">
       <div
         v-for="(item, index) in menu"
         :key="index"
@@ -62,6 +62,9 @@ export default {
   created() {
     const result = this.menu.indexOf(this.$route.name.toUpperCase())
     result !== -1 ? this.isSelected = result : this.isSelected = 0
+  },
+  mounted() {
+    document.body.appendChild(document.getElementById('menu'))
   },
   methods: {
     mouseOver() {

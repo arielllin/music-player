@@ -71,11 +71,11 @@ export default {
 <style lang="stylus" scoped>
 .bars
   position absolute
-  z-index 100
+  top 0
   width 100%
   &-background
-    position absolute
-    right 0
+    // position absolute
+    // right 0
     width 146px
     height 130px
     background-color #fff
@@ -85,8 +85,8 @@ export default {
 
 .bars-icon
   padding 44px 44px 66px 66px
-  position absolute
-  right 0
+  // position absolute
+  // right 0
   height 20px
   display flex
   flex-direction column
