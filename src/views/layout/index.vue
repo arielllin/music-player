@@ -5,6 +5,8 @@
         v-for="(item, index) in menu"
         :key="index"
         class="manu-list"
+        :class="{'is-selected': isSelected === index}"
+        @mouseover="onMouseOver(index)"
       >
         {{ item }}
       </div>
@@ -26,6 +28,7 @@ export default {
   data() {
     return {
       showBars: false,
+      isSelected: 0,
       menu: [
         'HOME',
         'NEWS',
@@ -42,7 +45,7 @@ export default {
         if (this.showBars) {
           gsap.to('.manu-list', {
             duration: 2,
-            opacity: 1
+            opacity: 0.3
           })
         } else {
           gsap.from('.manu-list', {
@@ -59,6 +62,10 @@ export default {
     },
     mouseOut() {
       this.showBars = false
+      this.isSelected = 0
+    },
+    onMouseOver(index) {
+      this.isSelected = index
     }
   }
 }
@@ -70,4 +77,8 @@ export default {
   font-size 30px
   padding 5px 100px
   opacity 0
+
+.is-selected
+  opacity 1!important
+  transition 0.5s
 </style>

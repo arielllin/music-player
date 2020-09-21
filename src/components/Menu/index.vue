@@ -1,6 +1,6 @@
 <template>
   <div class="bars">
-    <div id="background" class="bars-background" @mouseover="mouseOver" @mouseout="mouseOut">
+    <div class="bars-background" @mouseover="mouseOver" @mouseleave="mouseleave">
       <div class="bars-icon">
         <div
           v-for="index in [1, 2, 3]"
@@ -55,9 +55,7 @@ export default {
     mouseOver() {
       this.$emit('mouseover')
     },
-    mouseOut(e) {
-      console.log('e.target.id', e.target.id)
-      if (e.target.id !== 'background') return
+    mouseleave() {
       this.$emit('mouseout')
     }
   }
