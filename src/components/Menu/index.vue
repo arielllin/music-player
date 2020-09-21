@@ -29,16 +29,22 @@ export default {
   watch: {
     showBars: {
       handler() {
+        const t1 = gsap.timeline()
         if (this.showBars) {
-          gsap.to('.bars-background', {
+          t1.to('.bars-background', {
             duration: 1,
             width: '500px',
-            height: '500px',
-            'border-top-left-radius': '20% 66%',
-            'border-bottom-right-radius': '66% 20%',
-            'border-bottom-left-radius': '140%'
+            height: '500px'
+          }).to('.bars-background', {
+            duration: 2,
+            'border-top-left-radius': 'random(15, 25)% random(56, 76)%',
+            'border-bottom-right-radius': 'random(56, 76)% random(15, 25)%',
+            'border-bottom-left-radius': 'random(100, 160)%',
+            repeatRefresh: true,
+            repeat: 100
           })
         } else {
+          gsap.killTweensOf('.bars-background')
           gsap.to('.bars-background', {
             duration: 1,
             width: '146px',
@@ -73,9 +79,9 @@ export default {
     width 146px
     height 130px
     background-color #fff
-    border-top-left-radius 3% 10%
-    border-bottom-right-radius 10% 3%
-    border-bottom-left-radius 100%
+    border-top-left-radius 20% 66%
+    border-bottom-right-radius 66% 20%
+    border-bottom-left-radius 140%
 
 .bars-icon
   padding 44px 44px 66px 66px
