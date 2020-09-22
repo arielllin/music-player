@@ -96,8 +96,8 @@ export default {
   height 100px
   display flex
   align-items center
-  bottom 10%
-  right 10%
+  top 930px
+  left 1470px
   &-slected
     margin 0 -30px
     font-size 150px

@@ -170,7 +170,7 @@ export default {
   text-align left
   letter-spacing 0px
   color #fff
-  bottom 230px
+  top 633px
   left 135px
   font-size 163px
   &-selected
@@ -183,8 +183,8 @@ export default {
   color #fff
   opacity 0.9
   transform: translateY(-50%)
-  top 50%
-  right 10%
+  top 490px
+  left 1378px
   &-main
     font-size 104px
     letter-spacing 0px
@@ -203,8 +203,8 @@ export default {
   color #fff
   font-size 25px
   letter-spacing 2.5px
-  top 60%
-  right 10%
+  top 705px
+  left 1378px
   &-svg
     margin-left 10px
 
@@ -228,9 +228,9 @@ export default {
   position absolute
   transform translate(-50%)
   left 50%
-  bottom 10%
+  top 950px
   width 400px
-  height 50px
+  height 100px
   font-size 24px
 
 .page-change
@@ -240,6 +240,6 @@ export default {
   border-radius 50%
   position absolute
   left 50%
-  bottom 10%
+  top 950px
   z-index 2000
 </style>
