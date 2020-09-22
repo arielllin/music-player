@@ -93,14 +93,16 @@ export default {
   justify-content space-between
   align-items flex-end
   &-border
-    border-top 4px solid #000
-    border-radius 50%
+    border-top 3px solid #000
   &-1
     width 36px
+    border-radius 20%
   &-2
     width 30px
+    border-radius 20%
   &-3
     width 8px
+    border-radius 40%
 
 .bars-show
   position absolute

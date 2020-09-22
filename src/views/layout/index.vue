@@ -20,7 +20,7 @@
 import Menu from '@/components/Menu'
 
 import gsap from 'gsap'
-// import CSSRulePlugin from 'gsap/CSSRulePlugin'
+import CSSRulePlugin from 'gsap/CSSRulePlugin'
 // gsap.registerPlugin(CSSRulePlugin)
 
 export default {
@@ -75,14 +75,11 @@ export default {
       this.isSelected = index
     },
     onClickMenu(index) {
-      // const rule = CSSRulePlugin.getRule('.is-selected:before')
-      console.log('index', index)
-      // gsap.to(rule, {
-      //   duration: 2,
-      //   cssRule: {
-      //     width: '40px'
-      //   }
-      // })
+      const rule = CSSRulePlugin.getRule('.is-selected:before')
+      gsap.to(rule, {
+        duration: 0.5,
+        width: '150px'
+      })
     }
   }
 }
@@ -97,15 +94,17 @@ export default {
   padding 5px 40px
   width 200px
   opacity 0
+</style>
 
+<style lang="stylus">
 .is-selected
   opacity 1!important
   transition 0.5s
-  &::before
+  &:before
     content ''
     width 20px
     height 2px
     background-color #000
-    margin-right 10px
-    margin-left -30px
+    position absolute
+    right 250px
 </style>

@@ -3,6 +3,11 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import gsap from 'gsap'
+import CSSRulePlugin from 'gsap/CSSRulePlugin'
+import CSSPlugin from 'gsap/CSSPlugin'
+gsap.registerPlugin(CSSRulePlugin, CSSPlugin)
+
 import './assets/icons/index'
 
 Vue.config.productionTip = false

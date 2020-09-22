@@ -129,11 +129,14 @@ export default {
     },
     onClickAlbum() {
       gsap.to('.page-change', {
-        duration: 3,
-        'border-radius': '56%',
-        transform: 'scale(3000, 3000) translate(-5%)',
+        duration: 2,
+        'border-radius': '50%',
+        transform: 'scale(3000, 3000)',
         margin: '0 auto',
-        ease: 'power4.out'
+        ease: 'power4.out',
+        onComplete: () => {
+          this.$router.push({ name: 'Album', query: { album_sort: this.currentPage }})
+        }
       })
     }
   }
