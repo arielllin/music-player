@@ -42,10 +42,10 @@ export default {
   &-border
     position absolute
     border-radius 50%
-    top -220px
-    left 1000px
-    width 1478px
-    height 1478px
+    top -310px
+    left 980px
+    width 1700px
+    height 1700px
     border 1px solid #FFFFFF
     opacity 0.2
 </style>

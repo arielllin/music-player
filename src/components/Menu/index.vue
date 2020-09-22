@@ -33,8 +33,8 @@ export default {
         if (this.showBars) {
           t1.to('.bars-background', {
             duration: 1,
-            width: '500px',
-            height: '500px'
+            width: '26vw',
+            height: '26vw'
           }).to('.bars-background', {
             duration: 2,
             'border-top-left-radius': 'random(15, 25)% random(56, 76)%',
@@ -47,8 +47,8 @@ export default {
           gsap.killTweensOf('.bars-background')
           gsap.to('.bars-background', {
             duration: 1,
-            width: '146px',
-            height: '130px',
+            width: '7.6vw',
+            height: '6.8vw',
             'border-top-left-radius': '3% 10%',
             'border-bottom-right-radius': '10% 3%',
             'border-bottom-left-radius': '100%'
@@ -84,7 +84,7 @@ export default {
     border-bottom-left-radius 100%
 
 .bars-icon
-  padding 44px 44px 66px 66px
+  padding 38px 44px 66px 64px
   position absolute
   right 0
   height 20px
