@@ -41,7 +41,7 @@ export default {
             'border-bottom-right-radius': 'random(56, 76)% random(15, 25)%',
             'border-bottom-left-radius': 'random(100, 160)%',
             repeatRefresh: true,
-            repeat: 100
+            repeat: -1
           })
         } else {
           gsap.killTweensOf('.bars-background')

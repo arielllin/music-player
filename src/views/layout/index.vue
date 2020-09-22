@@ -98,7 +98,7 @@ export default {
 
 <style lang="stylus">
 .is-selected
-  opacity 1!important
+  opacity 0.8!important
   transition 0.5s
   &:before
     content ''
