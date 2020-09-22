@@ -4,10 +4,10 @@
     <div
       v-for="(item, index) in img"
       :key="index"
-      :class="`album-${index}`"
+      class="album-non-selected"
+      :class="[`album-${index}`, {'album-selected': index === isSelected}]"
     >
-      <div class="album-player-img"><img :src="require(`@/assets/images/${item.left}`)"></div>
-      <div class="album-player-img"><img :src="require(`@/assets/images/${item.right}`)"></div>
+      <div class="album-img"><img :src="require(`@/assets/images/${item}`)"></div>
     </div>
     <div class="album-border" />
     <div class="album-content" />
@@ -21,7 +21,8 @@
         v-for="(item, index) in songs"
         :key="index"
         class="track"
-        :class="{'track-selected': index === isSelected}"
+        :class="{'track-selected': index + 1 === isSelected}"
+        @click="onClickTrack(index)"
       >
         <span>{{ item }}</span>
         <span>Bob Marley・1975</span>
@@ -35,14 +36,15 @@ export default {
   name: 'Album',
   data() {
     return {
-      isSelected: 0,
+      isSelected: 1,
       img: [
-        { left: 'album_1.png', right: 'album_1.png' },
-        { left: 'album_2.png', right: 'album_2.png' },
-        { left: 'album_3.png', right: 'album_3.png' },
-        { left: 'album_4.png', right: 'album_4.png' },
-        { left: 'album_5.png', right: 'album_5.png' },
-        { left: 'album_6.png', right: 'album_6.png' }
+        'album_0.png',
+        'album_1.png',
+        'album_2.png',
+        'album_3.png',
+        'album_4.png',
+        'album_5.png',
+        'album_6.png'
       ],
       songs: [
         'Get Up Stand Up & Dub',
@@ -52,6 +54,11 @@ export default {
         'Redemption Song',
         'Jamming'
       ]
+    }
+  },
+  methods: {
+    onClickTrack(index) {
+      console.log(index)
     }
   }
 }
@@ -135,6 +142,14 @@ export default {
         position absolute
         top 27px
         left -230px
+      &:after
+        content ''
+        width 50px
+        height 50px
+        background-color #18264E
+        position absolute
+        top 27px
+        left 230px
 
   &-border
     position absolute
@@ -146,14 +161,14 @@ export default {
     border 1px solid #FFFFFF
     opacity 0.2
 
-  &-0, &-1, &-2, &-3, &-4, &-5
+  &-0, &-1, &-2, &-3, &-4, &-5, &-6
     position absolute
     width 3900px
     display flex
     justify-content space-between
     top 400px
     left 260px
-  &-1
+  &-0
     transform rotate(20deg)
   &-2
     transform rotate(-20deg)
@@ -163,8 +178,15 @@ export default {
     transform rotate(-60deg)
   &-5
     transform rotate(-80deg)
+  &-6
+    transform rotate(-100deg)
 
-.album-player-img
+  &-non-selected
+    opacity 0.3
+  &-selected
+    opacity 1
+
+.album-img
   width 789px
   height 350px
   img

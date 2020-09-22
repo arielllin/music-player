@@ -67,19 +67,19 @@ export default {
       gsap.to('.index-slected', {
         duration: 1,
         opacity: 0.9,
-        'font-size': '150px',
+        'font-size': '7.8vw',
         ease: 'power4.out'
       })
       gsap.to('.index-last-slected', {
         duration: 1,
         opacity: 0.2,
-        'font-size': '40px',
+        'font-size': '2vw',
         ease: 'power4.out'
       })
       gsap.to('.index-non-slected', {
         duration: 1,
         opacity: 0.2,
-        'font-size': '40px',
+        'font-size': '2vw',
         ease: 'power4.out'
       })
     }
