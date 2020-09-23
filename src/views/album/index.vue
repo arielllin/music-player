@@ -26,18 +26,12 @@
         :key="index"
         class="track"
         :class="{
-          'track-selected': index + 1 === isSelected
+          'track-selected': index + 1 === isSelected,
+          'track-last-selected': index + 1 === lastSelected
         }"
         @click="onClickTrack(index)"
       >
-        <div
-          class="track-info"
-          :class="{
-            'track-info-last': index + 1 === lastSelected,
-            'track-info-selected': index + 1 === isSelected,
-            'track-info-non-selected': index + 1 !== lastSelected && index + 1 !== isSelected
-          }"
-        >
+        <div class="track-info">
           <span>{{ item }}</span>
           <span>Bob Marley・1975</span>
         </div>
@@ -48,7 +42,6 @@
 
 <script>
 import gsap from 'gsap'
-// import CSSRulePlugin from 'gsap/CSSRulePlugin'
 
 export default {
   name: 'Album',
@@ -76,7 +69,7 @@ export default {
     }
   },
   mounted() {
-    gsap.to('.track-info-selected', {
+    gsap.to('.track-selected', {
       duration: 1,
       opacity: 0.8
     })
@@ -108,13 +101,13 @@ export default {
           top: '10.5vw'
         })
       }
-      gsap.to('.track-info-last', {
+      gsap.to('.track-selected', {
+        duration: 1.8,
+        opacity: 0.8
+      })
+      gsap.to('.track-last-selected', {
         duration: 1,
         opacity: 0.2
-      })
-      gsap.to('.track-info-selected', {
-        duration: 1,
-        opacity: 0.8
       })
     }
   }
@@ -181,6 +174,7 @@ export default {
     width 1378px
     height 1378px
     .track
+      opacity 0.2
       display flex
       flex-direction column
       margin-bottom 55px
@@ -190,9 +184,6 @@ export default {
         font-size 20px
         letter-spacing 0
         line-height 1.27
-        opacity 0.2
-        &-non-selected
-          opacity 0.2
 
   &-select
     position absolute
