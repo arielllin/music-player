@@ -17,26 +17,40 @@
     </div>
     <div class="album-singer">Bob Marley</div>
     <div class="album-songs">
-      <div
-        v-for="(item, index) in songs"
-        :key="index"
-        class="track"
-        :class="{'track-selected': index + 1 === isSelected}"
-        @click="onClickTrack(index)"
-      >
-        <span>{{ item }}</span>
-        <span>Bob Marley・1975</span>
+      <div :class="'album-select'">
+        <div class="right" />
+        <div class="left" />
+      </div>
+      <div class="track-container">
+        <div
+          v-for="(item, index) in songs"
+          :key="index"
+          class="track"
+          :class="{
+            'track-selected': index + 1 === isSelected,
+            'track-last-selected': index + 1 === lastSelected
+          }"
+          @click="onClickTrack(index)"
+        >
+          <div class="track-info">
+            <span>{{ item }}</span>
+            <span>Bob Marley・1975</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import gsap from 'gsap'
+
 export default {
   name: 'Album',
   data() {
     return {
       isSelected: 1,
+      lastSelected: null,
       img: [
         'album_0.png',
         'album_1.png',
@@ -56,9 +70,52 @@ export default {
       ]
     }
   },
+  mounted() {
+    gsap.to('.track-selected', {
+      duration: 1,
+      opacity: 0.8
+    })
+  },
   methods: {
     onClickTrack(index) {
-      console.log(index)
+      if (index + 1 !== this.isSelected) {
+        this.lastSelected = this.isSelected
+        this.isSelected = index + 1
+        this.$nextTick(() => {
+          this.playerRotate()
+        })
+      }
+    },
+    playerRotate() {
+      if (this.isSelected === 1) {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: '0.5vw'
+        })
+      } else if (this.isSelected === 2) {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: '5.5vw'
+        })
+      } else if (this.isSelected === 3) {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: '11vw'
+        })
+      } else {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: '11vw'
+        })
+      }
+      gsap.to('.track-selected', {
+        duration: 1.8,
+        opacity: 0.8
+      })
+      gsap.to('.track-last-selected', {
+        duration: 1,
+        opacity: 0.2
+      })
     }
   }
 }
@@ -119,37 +176,54 @@ export default {
   &-songs
     color #fff
     position absolute
-    top 380px
-    left 1460px
+    top 370px
+    left 1230px
+    padding-top 10px
+    padding-left 230px
     width 1378px
     height 1378px
-    .track
-      display flex
-      flex-direction column
-      margin-bottom 60px
-      opacity 0.2
-      span
-        font-size 20px
-        letter-spacing 0
-        line-height 1.27
-    .track-selected
+    overflow hidden
+    .track-container
+      position absolute
+      .track
+        opacity 0.2
+        display flex
+        flex-direction column
+        margin-bottom 55px
+        &-info
+          display flex
+          flex-direction column
+          font-size 20px
+          letter-spacing 0
+          line-height 1.27
+
+  &-select
+    position absolute
+    top 10px
+    left 230px
+    .right
       opacity 0.8
-      &:before
-        content ''
-        width 200px
-        height 2px
-        background-color #fff
-        position absolute
-        top 27px
-        left -230px
-      &:after
-        content ''
-        width 50px
-        height 50px
-        background-color #18264E
-        position absolute
-        top 27px
-        left 230px
+      content ''
+      width 200px
+      height 2px
+      background-color #fff
+      position absolute
+      margin-top 27px
+      left -230px
+    .left
+      opacity 0.8
+      content ''
+      background-image url('~@/assets/images/play.png')
+      background-position center
+      background-size 14px 14px
+      background-repeat no-repeat
+      width 60px
+      height 60px
+      border-radius 50px
+      background-color #3f5186
+      position absolute
+      left 360px
+      margin-top -5px
 
   &-border
     position absolute

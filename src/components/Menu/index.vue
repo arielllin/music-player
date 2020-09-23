@@ -47,8 +47,8 @@ export default {
           gsap.killTweensOf('.bars-background')
           gsap.to('.bars-background', {
             duration: 1,
-            width: '7.6vw',
-            height: '6.8vw',
+            width: '6.2vw',
+            height: '5.6vw',
             'border-top-left-radius': '3% 10%',
             'border-bottom-right-radius': '10% 3%',
             'border-bottom-left-radius': '100%'
@@ -76,15 +76,15 @@ export default {
   &-background
     position absolute
     right 0
-    width 146px
-    height 130px
+    width 120px
+    height 108px
     background-color #fff
     border-top-left-radius 3% 10%
     border-bottom-right-radius 10% 3%
     border-bottom-left-radius 100%
 
 .bars-icon
-  padding 38px 44px 66px 64px
+  padding 33px 35px 63px 58px
   position absolute
   right 0
   height 20px

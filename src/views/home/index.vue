@@ -23,9 +23,9 @@
     >
       {{ item.singer }}
       <div class="info">
-        <span>Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-        <span>do eiusmod tempor incididunt ut labore et dolore magna aliqua</span>
-        <span>quis nostrud exercitation ullamco laboris nisi</span>
+        <span>Lorem ipsum dolor sit amet, consectetur dolor sit adipiscing</span>
+        <span>do eiusmod tempor incididunt et dolore magna aliqua dolor sitdolor sit</span>
+        <span>quis nostrud exercitation ullamco laboris</span>
       </div>
     </div>
     <div class="playlist">
@@ -168,11 +168,12 @@ export default {
 .title
   position absolute
   text-align left
-  letter-spacing 0px
   color #fff
-  top 633px
+  top 570px
   left 135px
   font-size 163px
+  letter-spacing 0px
+  line-height 217px
   &-selected
     opacity 0
   &-hide
@@ -182,8 +183,7 @@ export default {
   position absolute
   color #fff
   opacity 0.9
-  transform: translateY(-50%)
-  top 490px
+  top 430px
   left 1378px
   &-main
     font-size 104px
@@ -203,7 +203,7 @@ export default {
   color #fff
   font-size 25px
   letter-spacing 2.5px
-  top 705px
+  top 645px
   left 1378px
   &-svg
     margin-left 10px
@@ -212,12 +212,12 @@ export default {
   display flex
   flex-direction column
   width 650px
-  font-size 16px
+  font-size 18px
   color #fff
   text-align left
   opacity 0.7
-  letter-spacing 2.5px
-  margin-top -25px
+  letter-spacing 0
+  line-height 24px
   span
     padding-bottom 3px
 
@@ -228,7 +228,7 @@ export default {
   position absolute
   transform translate(-50%)
   left 50%
-  top 950px
+  top 850px
   width 400px
   height 100px
   font-size 24px

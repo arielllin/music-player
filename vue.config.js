@@ -20,18 +20,21 @@ const exportConfig = merge(require(`./build/webpack.${envConfig.BUILD_CONFIG}`),
       return definitions
     })
 
+    // config.plugin('svg-sprite').use(require('svg-sprite-loader/plugin'))
+
     // -- 重新設定svg loader --
     config.module.rules.delete('svg')
     config.module
       .rule('svg-sprite-loader')
       .test(/\.svg$/)
-      .include
-      .add(path.join(__dirname, '.', 'src/assets/icons/svg'))
+      .include.add(path.join(__dirname, '.', 'src/assets/icons/svg'))
       .end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
       .options({
         symbolId: 'icon-[name]'
+        // extract: true
+        // spriteFilename: 'dist/icons-[hash:6].svg'
       })
     config.module
       .rule('markdown')
