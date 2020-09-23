@@ -44,6 +44,7 @@
 
 <script>
 import gsap from 'gsap'
+import { pxToVWToPx } from '@/utils'
 
 export default {
   name: 'Album',
@@ -82,30 +83,28 @@ export default {
         this.lastSelected = this.isSelected
         this.isSelected = index + 1
         this.$nextTick(() => {
-          this.playerRotate()
+          this.playerRotate(index + 1)
         })
       }
     },
-    playerRotate() {
-      if (this.isSelected === 1) {
+    playerRotate(index) {
+      if (index < 4) {
         gsap.to('.album-select', {
           duration: 1,
-          top: '0.5vw'
+          top: `${pxToVWToPx((index - 1) * 100 + 10)}px`
         })
-      } else if (this.isSelected === 2) {
-        gsap.to('.album-select', {
+        gsap.to('.track-container', {
           duration: 1,
-          top: '5.5vw'
-        })
-      } else if (this.isSelected === 3) {
-        gsap.to('.album-select', {
-          duration: 1,
-          top: '11vw'
+          top: `${pxToVWToPx(10)}px`
         })
       } else {
         gsap.to('.album-select', {
           duration: 1,
-          top: '11vw'
+          top: `${pxToVWToPx(220)}px`
+        })
+        gsap.to('.track-container', {
+          duration: 1,
+          top: `${pxToVWToPx(-(index - 3) * 100)}px`
         })
       }
       gsap.to('.track-selected', {
