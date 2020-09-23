@@ -17,26 +17,45 @@
     </div>
     <div class="album-singer">Bob Marley</div>
     <div class="album-songs">
+      <div :class="'album-select'">
+        <div class="right" />
+        <div class="left" />
+      </div>
       <div
         v-for="(item, index) in songs"
         :key="index"
         class="track"
-        :class="{'track-selected': index + 1 === isSelected}"
+        :class="{
+          'track-selected': index + 1 === isSelected
+        }"
         @click="onClickTrack(index)"
       >
-        <span>{{ item }}</span>
-        <span>Bob Marley・1975</span>
+        <div
+          class="track-info"
+          :class="{
+            'track-info-last': index + 1 === lastSelected,
+            'track-info-selected': index + 1 === isSelected,
+            'track-info-non-selected': index + 1 !== lastSelected && index + 1 !== isSelected
+          }"
+        >
+          <span>{{ item }}</span>
+          <span>Bob Marley・1975</span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import gsap from 'gsap'
+// import CSSRulePlugin from 'gsap/CSSRulePlugin'
+
 export default {
   name: 'Album',
   data() {
     return {
       isSelected: 1,
+      lastSelected: null,
       img: [
         'album_0.png',
         'album_1.png',
@@ -56,9 +75,47 @@ export default {
       ]
     }
   },
+  mounted() {
+    gsap.to('.track-info-selected', {
+      duration: 1,
+      opacity: 0.8
+    })
+  },
   methods: {
     onClickTrack(index) {
-      console.log(index)
+      if (index + 1 !== this.isSelected) {
+        this.lastSelected = this.isSelected
+        this.isSelected = index + 1
+        this.$nextTick(() => {
+          this.playerRotate()
+        })
+      }
+    },
+    playerRotate() {
+      if (this.isSelected === 1) {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: 0
+        })
+      } else if (this.isSelected === 2) {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: '5.5vw'
+        })
+      } else if (this.isSelected === 3) {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: '10.5vw'
+        })
+      }
+      gsap.to('.track-info-last', {
+        duration: 1,
+        opacity: 0.2
+      })
+      gsap.to('.track-info-selected', {
+        duration: 1,
+        opacity: 0.8
+      })
     }
   }
 }
@@ -126,30 +183,44 @@ export default {
     .track
       display flex
       flex-direction column
-      margin-bottom 60px
-      opacity 0.2
-      span
+      margin-bottom 55px
+      &-info
+        display flex
+        flex-direction column
         font-size 20px
         letter-spacing 0
         line-height 1.27
-    .track-selected
+        opacity 0.2
+        &-non-selected
+          opacity 0.2
+
+  &-select
+    position absolute
+    top 0
+    left 0
+    .right
       opacity 0.8
-      &:before
-        content ''
-        width 200px
-        height 2px
-        background-color #fff
-        position absolute
-        top 27px
-        left -230px
-      &:after
-        content ''
-        width 50px
-        height 50px
-        background-color #18264E
-        position absolute
-        top 27px
-        left 230px
+      content ''
+      width 200px
+      height 2px
+      background-color #fff
+      position absolute
+      margin-top 27px
+      left -230px
+    .left
+      opacity 0.8
+      content ''
+      background-image url('~@/assets/images/play.png')
+      background-position center
+      background-size 14px 14px
+      background-repeat no-repeat
+      width 60px
+      height 60px
+      border-radius 50px
+      background-color #3f5186
+      position absolute
+      left 360px
+      margin-top -5px
 
   &-border
     position absolute

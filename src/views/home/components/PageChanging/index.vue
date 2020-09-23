@@ -38,13 +38,13 @@ export default {
     gsap.to('.index-slected', {
       duration: 1,
       opacity: 0.9,
-      'font-size': '150px',
+      'font-size': '7vw',
       ease: 'power4.out'
     })
     gsap.to('.index-non-slected', {
       duration: 1,
       opacity: 0.2,
-      'font-size': '40px',
+      'font-size': '2vw',
       ease: 'power4.out'
     })
   },
@@ -67,7 +67,7 @@ export default {
       gsap.to('.index-slected', {
         duration: 1,
         opacity: 0.9,
-        'font-size': '7.8vw',
+        'font-size': '7vw',
         ease: 'power4.out'
       })
       gsap.to('.index-last-slected', {
@@ -91,13 +91,14 @@ export default {
 .index
   position absolute
   text-align right
-  letter-spacing 0px
+  letter-spacing 0
+  line-height 181px
   color #fff
   height 100px
   display flex
   align-items center
-  top 930px
-  left 1470px
+  top 840px
+  left 1500px
   &-slected
     margin 0 -30px
     font-size 150px
