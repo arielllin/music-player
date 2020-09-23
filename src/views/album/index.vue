@@ -21,19 +21,21 @@
         <div class="right" />
         <div class="left" />
       </div>
-      <div
-        v-for="(item, index) in songs"
-        :key="index"
-        class="track"
-        :class="{
-          'track-selected': index + 1 === isSelected,
-          'track-last-selected': index + 1 === lastSelected
-        }"
-        @click="onClickTrack(index)"
-      >
-        <div class="track-info">
-          <span>{{ item }}</span>
-          <span>Bob Marley・1975</span>
+      <div class="track-container">
+        <div
+          v-for="(item, index) in songs"
+          :key="index"
+          class="track"
+          :class="{
+            'track-selected': index + 1 === isSelected,
+            'track-last-selected': index + 1 === lastSelected
+          }"
+          @click="onClickTrack(index)"
+        >
+          <div class="track-info">
+            <span>{{ item }}</span>
+            <span>Bob Marley・1975</span>
+          </div>
         </div>
       </div>
     </div>
@@ -88,7 +90,7 @@ export default {
       if (this.isSelected === 1) {
         gsap.to('.album-select', {
           duration: 1,
-          top: 0
+          top: '0.5vw'
         })
       } else if (this.isSelected === 2) {
         gsap.to('.album-select', {
@@ -98,7 +100,12 @@ export default {
       } else if (this.isSelected === 3) {
         gsap.to('.album-select', {
           duration: 1,
-          top: '10.5vw'
+          top: '11vw'
+        })
+      } else {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: '11vw'
         })
       }
       gsap.to('.track-selected', {
@@ -169,26 +176,31 @@ export default {
   &-songs
     color #fff
     position absolute
-    top 380px
-    left 1460px
+    top 370px
+    left 1230px
+    padding-top 10px
+    padding-left 230px
     width 1378px
     height 1378px
-    .track
-      opacity 0.2
-      display flex
-      flex-direction column
-      margin-bottom 55px
-      &-info
+    overflow hidden
+    .track-container
+      position absolute
+      .track
+        opacity 0.2
         display flex
         flex-direction column
-        font-size 20px
-        letter-spacing 0
-        line-height 1.27
+        margin-bottom 55px
+        &-info
+          display flex
+          flex-direction column
+          font-size 20px
+          letter-spacing 0
+          line-height 1.27
 
   &-select
     position absolute
-    top 0
-    left 0
+    top 10px
+    left 230px
     .right
       opacity 0.8
       content ''
