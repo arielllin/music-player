@@ -3,5 +3,5 @@ export function pxToVWToPx(pxNumber) {
 }
 
 export default {
-  pxToVWToPx,
+  pxToVWToPx
 }

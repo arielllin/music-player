@@ -1,13 +1,13 @@
 <template>
   <div class="album">
-    <div class="album-player" />
-    <div
-      v-for="(item, index) in img"
-      :key="index"
-      class="album-non-selected"
-      :class="[`album-${index}`, {'album-selected': index === isSelected}]"
-    >
-      <div class="album-img"><img :src="require(`@/assets/images/${item}`)"></div>
+    <div class="album-player">
+      <div
+        v-for="(item, index) in img"
+        :key="index"
+        :class="[`album-${index}`, {'album-selected': index === isSelected, 'album-non-selected': index !== isSelected}]"
+      >
+        <div class="album-img"><img :src="require(`@/assets/images/${item}`)"></div>
+      </div>
     </div>
     <div class="album-border" />
     <div class="album-content" />
@@ -76,6 +76,14 @@ export default {
       duration: 1,
       opacity: 0.8
     })
+    gsap.to('.album-selected', {
+      duration: 1,
+      opacity: 1
+    })
+    gsap.to('.album-non-selected', {
+      duration: 1,
+      opacity: 0.2
+    })
   },
   methods: {
     onClickTrack(index) {
@@ -107,6 +115,29 @@ export default {
           top: `${pxToVWToPx(-(index - 3) * 100)}px`
         })
       }
+      gsap.to('.album-player', {
+        duration: 1.8,
+        transform: `rotate(${(index - 1) * 27}deg)`
+      })
+      // gsap.fromTo('.album-img', {
+      //   duration: 0.3,
+      //   transform: 'translateX(70px)',
+      //   ease: 'power4.in'
+      // }, {
+      //   duration: 0.7,
+      //   transform: 'translateX(-70px)',
+      //   ease: 'power4.out'
+      // })
+
+      gsap.to('.album-selected', {
+        duration: 1,
+        opacity: 1
+      })
+      gsap.to('.album-non-selected', {
+        duration: 1,
+        opacity: 0.2
+      })
+
       gsap.to('.track-selected', {
         duration: 1.8,
         opacity: 0.8
@@ -131,19 +162,19 @@ export default {
     background-color #111D40
     border-radius 50%
     position absolute
-    top -715px
-    left 124px
-    width 2568px
-    height 2568px
+    top -1283px
+    left 90px
+    width 3646px
+    height 3646px
 
   &-content
     background-color #18264E
     border-radius 50%
     position absolute
-    top -140px
+    top -146px
     left 1200px
-    width 1378px
-    height 1378px
+    width 1370px
+    height 1370px
 
   &-text
     color #fff
@@ -227,32 +258,32 @@ export default {
   &-border
     position absolute
     border-radius 50%
-    top -199px
-    left 1110px
-    width 1478px
-    height 1478px
+    top -270px
+    left 1075px
+    width 1620px
+    height 1620px
     border 1px solid #FFFFFF
     opacity 0.2
 
   &-0, &-1, &-2, &-3, &-4, &-5, &-6
     position absolute
-    width 3900px
+    width 3374px
     display flex
     justify-content space-between
-    top 400px
-    left 260px
+    top 1650px
+    left 136px
   &-0
-    transform rotate(20deg)
+    transform rotate(27deg)
   &-2
-    transform rotate(-20deg)
+    transform rotate(-27deg)
   &-3
-    transform rotate(-40deg)
+    transform rotate(-54deg)
   &-4
-    transform rotate(-60deg)
+    transform rotate(-81deg)
   &-5
-    transform rotate(-80deg)
+    transform rotate(-108deg)
   &-6
-    transform rotate(-100deg)
+    transform rotate(-135deg)
 
   &-non-selected
     opacity 0.3
