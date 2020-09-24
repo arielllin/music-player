@@ -7,7 +7,7 @@ export default {
       name: 'Album',
       path: 'album',
       component: () => import(/* webpackChunkName: "album" */ '@/views/album'),
-      query: route => ({
+      props: route => ({
         albumSort: route.query.album_sort
       })
     }

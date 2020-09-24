@@ -1,12 +1,21 @@
 <template>
   <div class="album">
+    <CloseButton class="close-button" />
     <div class="album-player">
       <div
         v-for="(item, index) in img"
         :key="index"
         :class="[`album-${index}`, {'album-selected': index === isSelected, 'album-non-selected': index !== isSelected}]"
       >
-        <div class="album-img"><img :src="require(`@/assets/images/${item}`)"></div>
+        <div
+          class="album-img"
+          :class="`album-img-${index}`"
+          :style="{ backgroundImage: 'url(' + item + ')' }"
+          @click="onClickSongImg(index)"
+        />
+        <!-- <div :style="{ backgroundImage: 'url(' + item + ')' }" /> -->
+        <!-- <img :src="require(`@/assets/images/${item}`)"> -->
+        <!-- </div> -->
       </div>
     </div>
     <div class="album-border" />
@@ -39,27 +48,32 @@
         </div>
       </div>
     </div>
+    <div class="page-change-mask" />
   </div>
 </template>
 
 <script>
 import gsap from 'gsap'
+import CloseButton from '@/components/CloseButton'
 import { pxToVWToPx } from '@/utils'
 
 export default {
   name: 'Album',
+  components: {
+    CloseButton
+  },
   data() {
     return {
       isSelected: 1,
       lastSelected: null,
       img: [
-        'album_0.png',
-        'album_1.png',
-        'album_2.png',
-        'album_3.png',
-        'album_4.png',
-        'album_5.png',
-        'album_6.png'
+        require('@/assets/images/origin/track_0.png'),
+        require('@/assets/images/origin/track_1.png'),
+        require('@/assets/images/origin/track_2.png'),
+        require('@/assets/images/origin/track_3.png'),
+        require('@/assets/images/origin/track_4.png'),
+        require('@/assets/images/origin/track_5.png'),
+        require('@/assets/images/origin/track_6.png')
       ],
       songs: [
         'Get Up Stand Up & Dub',
@@ -82,10 +96,35 @@ export default {
     })
     gsap.to('.album-non-selected', {
       duration: 1,
-      opacity: 0.2
+      opacity: 0.3
     })
   },
   methods: {
+    onClickSongImg(index) {
+      // this.playerRotate(2)
+      gsap.to(`.album-img-${index}`, {
+        duration: 1,
+        width: `${pxToVWToPx(920)}px`,
+        height: `${pxToVWToPx(1080)}px`,
+        top: `-${pxToVWToPx(412)}px`,
+        left: `-${pxToVWToPx(227)}px`,
+        'z-index': 100
+      })
+      gsap.set('.page-change-mask', {
+        top: 0
+      })
+      gsap.to('.close-button', {
+        duration: 1,
+        opacity: 1
+      })
+      gsap.to('.page-change-mask', {
+        duration: 1,
+        opacity: 1,
+        onComplete: () => {
+          this.$router.push({ name: 'Track', query: { singer: 'BobMarley', id: index }})
+        }
+      })
+    },
     onClickTrack(index) {
       if (index + 1 !== this.isSelected) {
         this.lastSelected = this.isSelected
@@ -268,6 +307,7 @@ export default {
   &-0, &-1, &-2, &-3, &-4, &-5, &-6
     position absolute
     width 3374px
+    height 350px
     display flex
     justify-content space-between
     top 1650px
@@ -293,8 +333,25 @@ export default {
 .album-img
   width 789px
   height 350px
+  background-position center
+  background-repeat no-repeat
+  background-size 100%
+  position absolute
   img
     border-radius 5px
     width 100%
     height 100%
+
+.page-change-mask
+  width 1000px
+  height 100vh
+  background-color #18264E
+  position absolute
+  top -1080px
+  right 0
+  opacity 0
+  z-index 100
+
+.close-button
+  opacity 0
 </style>
