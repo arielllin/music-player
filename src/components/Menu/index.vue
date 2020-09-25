@@ -17,6 +17,7 @@
 
 <script>
 import gsap from 'gsap'
+import { pxToVWToPx } from '@/utils'
 
 export default {
   name: 'Menu',
@@ -33,8 +34,8 @@ export default {
         if (this.showBars) {
           t1.to('.bars-background', {
             duration: 1,
-            width: '26vw',
-            height: '26vw'
+            width: `${pxToVWToPx(480)}px`,
+            height: `${pxToVWToPx(500)}px`
           }).to('.bars-background', {
             duration: 2,
             'border-top-left-radius': 'random(15, 25)% random(56, 76)%',
@@ -47,8 +48,8 @@ export default {
           gsap.killTweensOf('.bars-background')
           gsap.to('.bars-background', {
             duration: 1,
-            width: '6.2vw',
-            height: '5.6vw',
+            width: `${pxToVWToPx(120)}px`,
+            height: `${pxToVWToPx(108)}px`,
             'border-top-left-radius': '3% 10%',
             'border-bottom-right-radius': '10% 3%',
             'border-bottom-left-radius': '100%'

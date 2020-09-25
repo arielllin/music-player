@@ -1,5 +1,5 @@
 <template>
-  <div class="close-button">
+  <div class="close-button" @click="onClose">
     <div class="close-button-background" />
     <svg-icon class="close-button-svg" icon-class="close" />
   </div>
@@ -7,7 +7,12 @@
 
 <script>
 export default {
-  name: 'CloseButton'
+  name: 'CloseButton',
+  methods: {
+    onClose() {
+      this.$emit('onClose')
+    }
+  }
 }
 </script>
 

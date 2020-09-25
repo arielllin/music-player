@@ -9,7 +9,7 @@
         @mouseover="onMouseOver(index)"
         @click="onClickMenu(index)"
       >
-        {{ item }}
+        {{ item.toUpperCase() }}
       </div>
     </Menu>
     <router-view />
@@ -21,6 +21,7 @@ import Menu from '@/components/Menu'
 
 import gsap from 'gsap'
 import CSSRulePlugin from 'gsap/CSSRulePlugin'
+import { pxToVWToPx } from '@/utils'
 
 export default {
   name: 'Layout',
@@ -32,12 +33,12 @@ export default {
       showBars: false,
       isSelected: 0,
       menu: [
-        'HOME',
-        'NEWS',
-        'MEDIA',
-        'LYRICS',
-        'MERCH',
-        'FEATURES'
+        'Home',
+        'News',
+        'Media',
+        'Lyrics',
+        'Merch',
+        'Features'
       ]
     }
   },
@@ -77,7 +78,13 @@ export default {
       const rule = CSSRulePlugin.getRule('.is-selected:before')
       gsap.to(rule, {
         duration: 0.5,
-        width: '150px'
+        width: `${pxToVWToPx(150)}px`,
+        onComplete: () => {
+          this.$router.push({ name: this.menu[index] })
+          gsap.set(rule, {
+            width: `${pxToVWToPx(20)}px`
+          })
+        }
       })
     }
   }

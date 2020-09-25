@@ -66,6 +66,7 @@ export default {
   },
   data() {
     return {
+      clickLock: false,
       currentPage: 0,
       lastPage: null,
       topTenSongs: [
@@ -77,10 +78,6 @@ export default {
         'soundcloud', 'spotify', 'youtube', 'apple', 'instagram', 'facebook', 'twitter'
       ]
     }
-  },
-  computed: {
-  },
-  watch: {
   },
   mounted() {
     gsap.to('.background-slected', {
@@ -98,19 +95,24 @@ export default {
       return this.currentPage === index
     },
     onChangeIndex(index) {
-      if (this.currentPage === index) return
-
-      this.lastPage = this.currentPage
-      this.currentPage = index
-      this.$nextTick(() => {
-        this.changeBackground()
-      })
+      if (this.currentPage !== index) {
+        if (this.clickLock) return
+        this.clickLock = true
+        this.lastPage = this.currentPage
+        this.currentPage = index
+        this.$nextTick(() => {
+          this.changeBackground()
+        })
+      }
     },
     changeBackground() {
       gsap.to('.background-slected', {
         duration: 2,
         width: '100%',
-        ease: 'power4.out'
+        ease: 'power4.out',
+        onComplete: () => {
+          this.clickLock = false
+        }
       })
       gsap.to('.background-last-slected', {
         duration: 2,
@@ -131,11 +133,12 @@ export default {
       gsap.to('.page-change', {
         duration: 2,
         'border-radius': '50%',
-        transform: 'scale(3000, 3000)',
-        margin: '0 auto',
+        transform: 'scale(300, 300)',
         ease: 'power4.out',
         onComplete: () => {
-          this.$router.push({ name: 'Album', query: { album_sort: this.currentPage }})
+          const sort = this.currentPage
+          const query = this.topTenSongs[sort].singer
+          this.$router.push({ name: 'Album', query: { name: query }})
         }
       })
     }
@@ -234,12 +237,13 @@ export default {
   font-size 24px
 
 .page-change
-  width 1px
-  height 1px
+  width 10px
+  height 10px
   background-color #fff
   border-radius 50%
   position absolute
+  transform translate(-50%)
   left 50%
-  top 950px
+  top 900px
   z-index 2000
 </style>

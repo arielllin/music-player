@@ -13,9 +13,6 @@
           :style="{ backgroundImage: 'url(' + item + ')' }"
           @click="onClickSongImg(index)"
         />
-        <!-- <div :style="{ backgroundImage: 'url(' + item + ')' }" /> -->
-        <!-- <img :src="require(`@/assets/images/${item}`)"> -->
-        <!-- </div> -->
       </div>
     </div>
     <div class="album-border" />
@@ -24,7 +21,7 @@
       <div class="album-text-main">album</div>
       <div class="album-text-sub">TOP 10 SONGS</div>
     </div>
-    <div class="album-singer">Bob Marley</div>
+    <div class="album-singer">{{ albumName }}</div>
     <div class="album-songs">
       <div :class="'album-select'">
         <div class="right" />
@@ -48,6 +45,7 @@
         </div>
       </div>
     </div>
+    <div class="page-change-beginning" />
     <div class="page-change-mask" />
   </div>
 </template>
@@ -62,8 +60,15 @@ export default {
   components: {
     CloseButton
   },
+  props: {
+    albumName: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
+      clickLock: false,
       isSelected: 1,
       lastSelected: null,
       img: [
@@ -85,7 +90,47 @@ export default {
       ]
     }
   },
+  watch: {
+    isSelected: {
+      handler() {
+        if (this.isSelected < 4) {
+          gsap.to('.album-select', {
+            duration: 1,
+            top: `${pxToVWToPx((this.isSelected - 1) * 100 + 10)}px`
+          })
+          gsap.to('.track-container', {
+            duration: 1,
+            top: `${pxToVWToPx(10)}px`
+          })
+        } else {
+          gsap.to('.album-select', {
+            duration: 1,
+            top: `${pxToVWToPx(220)}px`
+          })
+          gsap.to('.track-container', {
+            duration: 1,
+            top: `${pxToVWToPx(-(this.isSelected - 3) * 100)}px`
+          })
+        }
+        gsap.to('.album-player', {
+          duration: 1.8,
+          transform: `rotate(${(this.isSelected - 1) * 27}deg)`
+        })
+      }
+    }
+  },
   mounted() {
+    gsap.fromTo('.page-change-beginning', {
+      duration: 2,
+      transform: 'scale(300, 300)',
+      ease: 'power4.out'
+    }, {
+      duration: 2,
+      top: `${pxToVWToPx(401)}px`,
+      left: `${pxToVWToPx(1847)}px`,
+      transform: 'scale(0, 0)',
+      ease: 'power4.out'
+    })
     gsap.to('.track-selected', {
       duration: 1,
       opacity: 0.8
@@ -101,73 +146,47 @@ export default {
   },
   methods: {
     onClickSongImg(index) {
-      // this.playerRotate(2)
-      gsap.to(`.album-img-${index}`, {
-        duration: 1,
-        width: `${pxToVWToPx(920)}px`,
-        height: `${pxToVWToPx(1080)}px`,
-        top: `-${pxToVWToPx(412)}px`,
-        left: `-${pxToVWToPx(227)}px`,
-        'z-index': 100
-      })
-      gsap.set('.page-change-mask', {
-        top: 0
-      })
-      gsap.to('.close-button', {
-        duration: 1,
-        opacity: 1
-      })
-      gsap.to('.page-change-mask', {
-        duration: 1,
-        opacity: 1,
-        onComplete: () => {
-          this.$router.push({ name: 'Track', query: { singer: 'BobMarley', id: index }})
-        }
-      })
+      if (index === this.isSelected) {
+        gsap.to('.album-select', {
+          duration: 1,
+          top: `${pxToVWToPx(110)}px`
+        })
+        gsap.to(`.album-img-${index}`, {
+          duration: 1,
+          width: `${pxToVWToPx(925)}px`,
+          height: `${pxToVWToPx(1080)}px`,
+          top: `-${pxToVWToPx(365)}px`,
+          left: `-${pxToVWToPx(215)}px`,
+          'z-index': 100
+        })
+        gsap.set('.page-change-mask', {
+          top: 0
+        })
+        gsap.to('.close-button', {
+          duration: 1,
+          opacity: 1
+        })
+        gsap.to('.page-change-mask', {
+          duration: 1,
+          opacity: 1,
+          onComplete: () => {
+            this.$router.push({ name: 'Track', query: { singer: 'BobMarley', id: index }})
+          }
+        })
+      }
     },
     onClickTrack(index) {
       if (index + 1 !== this.isSelected) {
+        if (this.clickLock) return
+        this.clickLock = true
         this.lastSelected = this.isSelected
         this.isSelected = index + 1
         this.$nextTick(() => {
-          this.playerRotate(index + 1)
+          this.trackChange()
         })
       }
     },
-    playerRotate(index) {
-      if (index < 4) {
-        gsap.to('.album-select', {
-          duration: 1,
-          top: `${pxToVWToPx((index - 1) * 100 + 10)}px`
-        })
-        gsap.to('.track-container', {
-          duration: 1,
-          top: `${pxToVWToPx(10)}px`
-        })
-      } else {
-        gsap.to('.album-select', {
-          duration: 1,
-          top: `${pxToVWToPx(220)}px`
-        })
-        gsap.to('.track-container', {
-          duration: 1,
-          top: `${pxToVWToPx(-(index - 3) * 100)}px`
-        })
-      }
-      gsap.to('.album-player', {
-        duration: 1.8,
-        transform: `rotate(${(index - 1) * 27}deg)`
-      })
-      // gsap.fromTo('.album-img', {
-      //   duration: 0.3,
-      //   transform: 'translateX(70px)',
-      //   ease: 'power4.in'
-      // }, {
-      //   duration: 0.7,
-      //   transform: 'translateX(-70px)',
-      //   ease: 'power4.out'
-      // })
-
+    trackChange() {
       gsap.to('.album-selected', {
         duration: 1,
         opacity: 1
@@ -179,7 +198,10 @@ export default {
 
       gsap.to('.track-selected', {
         duration: 1.8,
-        opacity: 0.8
+        opacity: 0.8,
+        onComplete: () => {
+          this.clickLock = false
+        }
       })
       gsap.to('.track-last-selected', {
         duration: 1,
@@ -280,7 +302,6 @@ export default {
       margin-top 27px
       left -230px
     .left
-      opacity 0.8
       content ''
       background-image url('~@/assets/images/play.png')
       background-position center
@@ -289,7 +310,7 @@ export default {
       width 60px
       height 60px
       border-radius 50px
-      background-color #3f5186
+      background-color #3e4c74
       position absolute
       left 360px
       margin-top -5px
@@ -344,7 +365,7 @@ export default {
 
 .page-change-mask
   width 1000px
-  height 100vh
+  height 1080px
   background-color #18264E
   position absolute
   top -1080px
@@ -354,4 +375,14 @@ export default {
 
 .close-button
   opacity 0
+
+.page-change-beginning
+  width 10px
+  height 10px
+  background-color #fff
+  border-radius 7px
+  position absolute
+  transform translate(-50%)
+  left 50%
+  z-index 2000
 </style>

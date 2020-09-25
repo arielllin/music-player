@@ -8,7 +8,7 @@ export default {
       path: 'album',
       component: () => import(/* webpackChunkName: "album" */ '@/views/album'),
       props: route => ({
-        albumSort: route.query.album_sort
+        albumName: route.query.name
       })
     }
   ]
