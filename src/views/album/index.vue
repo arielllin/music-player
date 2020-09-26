@@ -156,27 +156,30 @@ export default {
   },
   methods: {
     onClickSongImg(index) {
+      const t1 = gsap.timeline()
+      const t2 = gsap.timeline()
       if (index === this.isSelected) {
         gsap.to('.album-select', {
           duration: 1,
           top: `${pxToVWToPx(110)}px`
         })
-        gsap.to(`.album-img-${index}`, {
-          duration: 1,
+        t1.set(`.album-img-${index}`, {
+          'z-index': 200
+        }).to(`.album-img-${index}`, {
+          duration: 1.2,
+          ease: 'power1.inOut',
+          delay: 0.1,
           width: `${pxToVWToPx(925)}px`,
           height: `${pxToVWToPx(1080)}px`,
           top: `-${pxToVWToPx(367)}px`,
           left: `-${pxToVWToPx(225)}px`
         })
-        gsap.set('.page-change-mask', {
-          top: 0
-        })
-        gsap.to('.close-button', {
+        t2.set('.page-change-mask', {
+          'z-index': 100
+        }).to('.page-change-mask', {
           duration: 1,
-          opacity: 1
-        })
-        gsap.to('.page-change-mask', {
-          duration: 1,
+          ease: 'power1.inOut',
+          delay: 0.3,
           opacity: 1,
           onComplete: () => {
             this.$router.push({
@@ -184,6 +187,15 @@ export default {
               query: { singer: this.$route.query.name, id: index }
             })
           }
+        })
+        gsap.set('.page-change-mask', {
+          top: 0
+        })
+        gsap.to('.close-button', {
+          duration: 1,
+          ease: 'power1.inOut',
+          delay: 0.3,
+          opacity: 1
         })
       }
     },
@@ -214,7 +226,7 @@ export default {
       gsap.to('.track-selected', {
         duration: 1.4,
         opacity: 0.8,
-        ease: 'power1',
+        ease: 'power1.inOut',
         delay: 0.2,
         onComplete: () => {
           this.clickLock = false
@@ -223,7 +235,7 @@ export default {
       gsap.to('.track-last-selected', {
         duration: 1.4,
         opacity: 0.2,
-        ease: 'power1',
+        ease: 'power1.inOut',
         delay: 0.2
       })
       const t1 = gsap.timeline()
@@ -231,7 +243,7 @@ export default {
         transform: `translateX(0)`
       }, {
         duration: 0.7,
-        transform: `translateX(20px)`,
+        transform: `translateX(35px)`,
         ease: 'power1.inOut',
         delay: 0.2
       }).to('.album-img', {
@@ -403,7 +415,6 @@ export default {
   top -1080px
   right 0
   opacity 0
-  z-index 100
 
 .close-button
   opacity 0

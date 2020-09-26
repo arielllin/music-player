@@ -107,14 +107,14 @@ export default {
     gsap.fromTo('.lyrics-default', {
       opacity: 0
     }, {
-      duration: 3,
+      duration: 1.2,
       opacity: 1,
-      ease: 'power4.out'
+      ease: 'power1.in'
     })
     gsap.fromTo('.content', {
       opacity: 0
     }, {
-      duration: 2,
+      duration: 1.6,
       opacity: 0.1,
       ease: 'power4.out',
       onComplete: () => {

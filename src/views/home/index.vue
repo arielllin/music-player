@@ -80,15 +80,13 @@ export default {
       ]
     }
   },
-  computed: {
-  },
   mounted() {
-    gsap.set('.background-slected', {
+    gsap.to('.background-slected', {
       duration: 1.5,
       width: '100%',
       ease: 'power4.out'
     })
-    gsap.set('.title-selected', {
+    gsap.to('.title-selected', {
       duration: 1.5,
       opacity: 0.9
     })
@@ -113,7 +111,7 @@ export default {
     },
     changeBackground() {
       gsap.to('.background-slected', {
-        duration: 1.5,
+        duration: 1.4,
         width: '100%',
         ease: 'power4.inOut',
         delay: 0.2,
@@ -122,20 +120,20 @@ export default {
         }
       })
       gsap.to('.background-last-slected', {
-        duration: 1.5,
+        duration: 1.4,
         width: '0%',
         ease: 'power4.inOut',
         delay: 0.2
       })
 
       gsap.to('.title-last-slected', {
-        duration: 1.4,
+        duration: 1.3,
         opacity: 0,
         ease: 'power4.inOut',
         delay: 0.3
       })
       gsap.to('.title-selected', {
-        duration: 1.4,
+        duration: 1.3,
         opacity: 0.9,
         ease: 'power4.inOut',
         delay: 0.3
@@ -211,8 +209,8 @@ export default {
     letter-spacing 2.5px
 
 .listen-button
-  background-color #929fbd
-  opacity 0.9
+  background-color rgba(255,255,255,0.4)
+  backdrop-filter blur(24px)
   padding 26px 63px 31px 63px
   border-radius 45px
   position absolute

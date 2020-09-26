@@ -36,14 +36,12 @@ export default {
   },
   mounted() {
     gsap.set('.index-slected', {
-      duration: 1,
       opacity: 0.9,
       'font-size': '7vw',
       ease: 'power4.out',
       margin: '0 -40px'
     })
     gsap.set('.index-non-slected', {
-      duration: 1,
       opacity: 0.2,
       'font-size': '2vw',
       ease: 'power4.out'
@@ -69,28 +67,25 @@ export default {
     },
     changeIndex() {
       gsap.to('.index-slected', {
-        duration: 1,
+        duration: 1.5,
         opacity: 0.9,
         'font-size': '7vw',
-        ease: 'power1',
-        margin: '0 -40px',
-        delay: 0.2
+        ease: 'power3.inOut',
+        margin: '0 -40px'
       })
       gsap.to('.index-last-slected', {
-        duration: 0.8,
+        duration: 1.5,
         opacity: 0.2,
         'font-size': '2vw',
-        ease: 'power1',
-        margin: '0',
-        delay: 0.2
+        ease: 'power3.inOut',
+        margin: '0'
       })
       gsap.to('.index-non-slected', {
-        duration: 0.8,
+        duration: 1.5,
         opacity: 0.2,
         'font-size': '2vw',
-        ease: 'power1',
-        margin: '0',
-        delay: 0.2
+        ease: 'power3.inOut',
+        margin: '0'
       })
     }
   }

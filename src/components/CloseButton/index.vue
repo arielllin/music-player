@@ -18,20 +18,18 @@ export default {
 
 <style lang="stylus" scoped>
 .close-button
-  z-index 100
+  z-index 300
   position absolute
   top 48px
   left 64px
   display flex
   justify-content center
   align-items center
-  // backdrop-filter blur(30px)
   &-background
     width 70px
     height 70px
-    background-color #fff
-    // backdrop-filter blur(30px)
-    opacity 0.3
+    background-color rgba(255,255,255,0.4)
+    backdrop-filter blur(24px)
     border-radius 50%
   &-svg
     position absolute
