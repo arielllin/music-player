@@ -95,26 +95,36 @@ export default {
       handler() {
         if (this.isSelected < 4) {
           gsap.to('.album-select', {
-            duration: 1,
-            top: `${pxToVWToPx((this.isSelected - 1) * 100 + 10)}px`
+            duration: 1.4,
+            top: `${pxToVWToPx((this.isSelected - 1) * 100 + 10)}px`,
+            ease: 'power3.inOut',
+            delay: 0.2
           })
           gsap.to('.track-container', {
-            duration: 1,
-            top: `${pxToVWToPx(10)}px`
+            duration: 1.4,
+            top: `${pxToVWToPx(10)}px`,
+            ease: 'ppower3.inOut',
+            delay: 0.2
           })
         } else {
           gsap.to('.album-select', {
-            duration: 1,
-            top: `${pxToVWToPx(220)}px`
+            duration: 1.4,
+            top: `${pxToVWToPx(220)}px`,
+            ease: 'power3.inOut',
+            delay: 0.2
           })
           gsap.to('.track-container', {
-            duration: 1,
-            top: `${pxToVWToPx(-(this.isSelected - 3) * 100)}px`
+            duration: 1.4,
+            top: `${pxToVWToPx(-(this.isSelected - 3) * 100)}px`,
+            ease: 'power3.inOut',
+            delay: 0.2
           })
         }
         gsap.to('.album-player', {
-          duration: 1.8,
-          transform: `rotate(${(this.isSelected - 1) * 27}deg)`
+          duration: 1.4,
+          transform: `rotate(${(this.isSelected - 1) * 27}deg)`,
+          ease: 'power1.inOut',
+          delay: 0.2
         })
       }
     }
@@ -155,9 +165,8 @@ export default {
           duration: 1,
           width: `${pxToVWToPx(925)}px`,
           height: `${pxToVWToPx(1080)}px`,
-          top: `-${pxToVWToPx(365)}px`,
-          left: `-${pxToVWToPx(215)}px`,
-          'z-index': 100
+          top: `-${pxToVWToPx(367)}px`,
+          left: `-${pxToVWToPx(225)}px`
         })
         gsap.set('.page-change-mask', {
           top: 0
@@ -170,7 +179,10 @@ export default {
           duration: 1,
           opacity: 1,
           onComplete: () => {
-            this.$router.push({ name: 'Track', query: { singer: 'BobMarley', id: index }})
+            this.$router.push({
+              name: 'Track',
+              query: { singer: this.$route.query.name, id: index }
+            })
           }
         })
       }
@@ -188,24 +200,44 @@ export default {
     },
     trackChange() {
       gsap.to('.album-selected', {
-        duration: 1,
-        opacity: 1
+        duration: 1.4,
+        opacity: 1,
+        ease: 'power4.inOut',
+        delay: 0.2
       })
       gsap.to('.album-non-selected', {
-        duration: 1,
-        opacity: 0.2
+        duration: 1.4,
+        opacity: 0.2,
+        ease: 'power1.in',
+        delay: 0.2
       })
-
       gsap.to('.track-selected', {
-        duration: 1.8,
+        duration: 1.4,
         opacity: 0.8,
+        ease: 'power1',
+        delay: 0.2,
         onComplete: () => {
           this.clickLock = false
         }
       })
       gsap.to('.track-last-selected', {
-        duration: 1,
-        opacity: 0.2
+        duration: 1.4,
+        opacity: 0.2,
+        ease: 'power1',
+        delay: 0.2
+      })
+      const t1 = gsap.timeline()
+      t1.fromTo('.album-img', {
+        transform: `translateX(0)`
+      }, {
+        duration: 0.7,
+        transform: `translateX(20px)`,
+        ease: 'power1.inOut',
+        delay: 0.2
+      }).to('.album-img', {
+        duration: 0.7,
+        transform: `translateX(0)`,
+        ease: 'power1.inOut'
       })
     }
   }
@@ -364,7 +396,7 @@ export default {
     height 100%
 
 .page-change-mask
-  width 1000px
+  width 995px
   height 1080px
   background-color #18264E
   position absolute

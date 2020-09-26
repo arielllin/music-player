@@ -5,9 +5,9 @@
       :key="item.index"
       class="background"
       :class="{
-        'background-slected': currentPage === index,
-        'background-hide': currentPage !== index && lastPage !== index,
-        'background-last-slected': lastPage === index
+        'background-hide': !isCurrentPage(index) && !isLastPage(index),
+        'background-slected': isCurrentPage(index),
+        'background-last-slected': isLastPage(index)
       }"
       :style="{ backgroundImage: 'url(' + item.img + ')' }"
     />
@@ -16,9 +16,9 @@
       :key="item.index"
       class="title"
       :class="{
-        'title-hide': !isCurrent(index),
-        'title-selected': isCurrent(index),
-        'title-last-slected': lastPage === index
+        'title-hide': !isCurrentPage(index),
+        'title-selected': isCurrentPage(index),
+        'title-last-slected': isLastPage(index)
       }"
     >
       {{ item.singer }}
@@ -45,7 +45,7 @@
       />
     </div>
     <PageChanging
-      :index-table="topTenSongs"
+      :index-table="topTenSongs.length"
       :current-page="currentPage"
       :last-page="lastPage"
       @onChangeIndex="onChangeIndex"
@@ -70,6 +70,7 @@ export default {
       currentPage: 0,
       lastPage: null,
       topTenSongs: [
+        { singer: 'Lady Gaga', img: require('@/assets/images/lady-gaga.png') },
         { singer: 'Bob Marley', img: require('@/assets/images/Bob-Marley@2x.png') },
         { singer: 'michael', img: require('@/assets/images/michael-jackson@2x.png') },
         { singer: 'beetles', img: require('@/assets/images/beetle@2x.png') }
@@ -79,20 +80,25 @@ export default {
       ]
     }
   },
+  computed: {
+  },
   mounted() {
-    gsap.to('.background-slected', {
-      duration: 2,
+    gsap.set('.background-slected', {
+      duration: 1.5,
       width: '100%',
       ease: 'power4.out'
     })
-    gsap.to('.title-selected', {
-      duration: 1,
+    gsap.set('.title-selected', {
+      duration: 1.5,
       opacity: 0.9
     })
   },
   methods: {
-    isCurrent(index) {
+    isCurrentPage(index) {
       return this.currentPage === index
+    },
+    isLastPage(index) {
+      return this.lastPage === index
     },
     onChangeIndex(index) {
       if (this.currentPage !== index) {
@@ -107,26 +113,32 @@ export default {
     },
     changeBackground() {
       gsap.to('.background-slected', {
-        duration: 2,
+        duration: 1.5,
         width: '100%',
-        ease: 'power4.out',
+        ease: 'power4.inOut',
+        delay: 0.2,
         onComplete: () => {
           this.clickLock = false
         }
       })
       gsap.to('.background-last-slected', {
-        duration: 2,
+        duration: 1.5,
         width: '0%',
-        ease: 'power4.out'
+        ease: 'power4.inOut',
+        delay: 0.2
       })
 
       gsap.to('.title-last-slected', {
-        duration: 1,
-        opacity: 0
+        duration: 1.4,
+        opacity: 0,
+        ease: 'power4.inOut',
+        delay: 0.3
       })
       gsap.to('.title-selected', {
-        duration: 1,
-        opacity: 0.9
+        duration: 1.4,
+        opacity: 0.9,
+        ease: 'power4.inOut',
+        delay: 0.3
       })
     },
     onClickAlbum() {
@@ -156,6 +168,7 @@ export default {
 .background
   height 100%
   background-size cover
+  background-position center
   background-repeat no-repeat
   background-attachment fixed
   background-color #08224b

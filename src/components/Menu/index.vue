@@ -35,7 +35,10 @@ export default {
           t1.to('.bars-background', {
             duration: 1,
             width: `${pxToVWToPx(480)}px`,
-            height: `${pxToVWToPx(500)}px`
+            height: `${pxToVWToPx(500)}px`,
+            'border-top-left-radius': 'random(15, 25)% random(56, 76)%',
+            'border-bottom-right-radius': 'random(56, 76)% random(15, 25)%',
+            'border-bottom-left-radius': 'random(100, 160)%'
           }).to('.bars-background', {
             duration: 2,
             'border-top-left-radius': 'random(15, 25)% random(56, 76)%',

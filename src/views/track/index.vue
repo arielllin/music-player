@@ -157,7 +157,7 @@ export default {
     position absolute
     top 0
     right 0
-    width 1000px
+    width 995px
     height 1080px
     .lyrics-default
       color #fff
