@@ -2,7 +2,7 @@
   <div class="track">
     <CloseButton class="close-button" @onClose="onCloseTrack" />
     <div class="track-lyrics">
-      <div class="lyrics-default track-lyrics-title">{{ songs[trackId] }}</div>
+      <div class="lyrics-default track-lyrics-title">{{ songs[trackId - 1] }}</div>
       <div class="lyrics-default track-lyrics-sub">{{ `SONG BY ${singer.toUpperCase()}` }}</div>
       <div class="track-lyrics-content-wrap">
         <div class="content">
