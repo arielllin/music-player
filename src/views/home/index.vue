@@ -86,7 +86,7 @@ export default {
     gsap.to('.background-slected', {
       duration: 1.5,
       width: '100%',
-      ease: 'power4.out'
+      ease: 'power4.inOut'
     })
     gsap.to('.title-main-selected', {
       duration: 1.5,
