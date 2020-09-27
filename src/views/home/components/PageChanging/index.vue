@@ -101,21 +101,19 @@ export default {
   display flex
   justify-content space-between
   width 240px
-  height 100px
+  height 181px
   display flex
   align-items center
-  top 840px
+  bottom 32px
   left 1500px
   &-slected
     font-size 136px
     line-height 181px
     opacity 0
-    // margin 0 -40px
   &-last-slected
     opacity 0.2
     font-size 40px
     line-height 53px
   &-non-slected
-    // padding 0 8px
     opacity 0.2
 </style>

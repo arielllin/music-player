@@ -131,15 +131,13 @@ export default {
   },
   mounted() {
     gsap.fromTo('.page-change-beginning', {
-      duration: 2,
-      transform: 'scale(300, 300)',
-      ease: 'power4.out'
+      transform: 'scale(300, 300)'
     }, {
-      duration: 2,
+      duration: 1.5,
       top: `${pxToVWToPx(401)}px`,
       left: `${pxToVWToPx(1847)}px`,
       transform: 'scale(0, 0)',
-      ease: 'power4.out'
+      ease: 'power2.inOut'
     })
     gsap.to('.track-selected', {
       duration: 1,
@@ -170,7 +168,7 @@ export default {
           ease: 'power1.inOut',
           delay: 0.1,
           width: `${pxToVWToPx(925)}px`,
-          height: `${pxToVWToPx(1080)}px`,
+          height: '100vh',
           top: `-${pxToVWToPx(367)}px`,
           left: `-${pxToVWToPx(225)}px`
         })
@@ -400,7 +398,7 @@ export default {
   height 350px
   background-position center
   background-repeat no-repeat
-  background-size 100%
+  background-size cover
   position absolute
   img
     border-radius 5px
@@ -409,7 +407,7 @@ export default {
 
 .page-change-mask
   width 995px
-  height 1080px
+  height 100vh
   background-color #18264E
   position absolute
   top -1080px
@@ -423,7 +421,7 @@ export default {
   width 10px
   height 10px
   background-color #fff
-  border-radius 7px
+  border-radius 50%
   position absolute
   transform translate(-50%)
   left 50%

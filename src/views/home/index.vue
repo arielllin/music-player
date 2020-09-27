@@ -11,18 +11,20 @@
       }"
       :style="{ backgroundImage: 'url(' + item.img + ')' }"
     />
-    <div
-      v-for="(item, index) in topTenSongs"
-      :key="item.index"
-      class="title"
-      :class="{
-        'title-hide': !isCurrentPage(index),
-        'title-selected': isCurrentPage(index),
-        'title-last-slected': isLastPage(index)
-      }"
-    >
-      {{ item.singer }}
-      <div class="info">
+    <div class="title">
+      <div
+        v-for="(item, index) in topTenSongs"
+        :key="item.index"
+        class="title-main"
+        :class="{
+          'title-main-hide': !isCurrentPage(index),
+          'title-main-selected': isCurrentPage(index),
+          'title-main-last-slected': isLastPage(index)
+        }"
+      >
+        {{ item.singer }}
+      </div>
+      <div class="title-sub">
         <span>Lorem ipsum dolor sit amet, consectetur dolor sit adipiscing</span>
         <span>do eiusmod tempor incididunt et dolore magna aliqua dolor sitdolor sit</span>
         <span>quis nostrud exercitation ullamco laboris</span>
@@ -86,7 +88,7 @@ export default {
       width: '100%',
       ease: 'power4.out'
     })
-    gsap.to('.title-selected', {
+    gsap.to('.title-main-selected', {
       duration: 1.5,
       opacity: 0.9
     })
@@ -126,13 +128,13 @@ export default {
         delay: 0.2
       })
 
-      gsap.to('.title-last-slected', {
+      gsap.to('.title-main-last-slected', {
         duration: 1.3,
         opacity: 0,
         ease: 'power4.inOut',
         delay: 0.3
       })
-      gsap.to('.title-selected', {
+      gsap.to('.title-main-selected', {
         duration: 1.3,
         opacity: 0.9,
         ease: 'power4.inOut',
@@ -140,11 +142,16 @@ export default {
       })
     },
     onClickAlbum() {
+      gsap.to('.title-main', {
+        duration: 1,
+        transform: 'translate(55%, -55%)',
+        ease: 'power2.inOut'
+      })
       gsap.to('.page-change', {
-        duration: 2,
+        duration: 1.5,
         'border-radius': '50%',
         transform: 'scale(300, 300)',
-        ease: 'power4.out',
+        ease: 'power2.inOut',
         onComplete: () => {
           const sort = this.currentPage
           const query = this.topTenSongs[sort].singer
@@ -181,23 +188,40 @@ export default {
 
 .title
   position absolute
-  text-align left
-  color #fff
-  top 570px
+  top 633px
   left 135px
-  font-size 163px
-  letter-spacing 0px
-  line-height 217px
-  &-selected
-    opacity 0
-  &-hide
-    opacity 0
+  width 100%
+  height 280px
+  &-main
+    position absolute
+    top 0
+    text-align left
+    color #fff
+    font-size 163px
+    letter-spacing 0px
+    line-height 217px
+    &-selected
+      opacity 0
+    &-hide
+      opacity 0
+  &-sub
+    position absolute
+    bottom 0
+    display flex
+    flex-direction column
+    width 650px
+    font-size 18px
+    color #fff
+    text-align left
+    opacity 0.7
+    letter-spacing 0
+    line-height 24px
 
 .playlist
   position absolute
   color #fff
   opacity 0.9
-  top 430px
+  top 489px
   left 1378px
   &-main
     font-size 104px
@@ -217,23 +241,10 @@ export default {
   color #fff
   font-size 25px
   letter-spacing 2.5px
-  top 645px
+  top 705px
   left 1378px
   &-svg
     margin-left 10px
-
-.info
-  display flex
-  flex-direction column
-  width 650px
-  font-size 18px
-  color #fff
-  text-align left
-  opacity 0.7
-  letter-spacing 0
-  line-height 24px
-  span
-    padding-bottom 3px
 
 .footer-icons
   display flex
@@ -242,9 +253,9 @@ export default {
   position absolute
   transform translate(-50%)
   left 50%
-  top 850px
+  bottom 12px
   width 400px
-  height 100px
+  height 181px
   font-size 24px
 
 .page-change
@@ -255,6 +266,6 @@ export default {
   position absolute
   transform translate(-50%)
   left 50%
-  top 900px
+  bottom 95px
   z-index 2000
 </style>

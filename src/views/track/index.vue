@@ -158,7 +158,7 @@ export default {
     top 0
     right 0
     width 995px
-    height 1080px
+    height 100vh
     .lyrics-default
       color #fff
     &-title
@@ -190,7 +190,7 @@ export default {
 
   &-player
     position absolute
-    top 848px
+    bottom 0
     width 1920px
     height 153px
     background-color #3e4c74
@@ -202,7 +202,7 @@ export default {
     align-items center
     width 550px
     position absolute
-    top 920px
+    bottom 70px
     right 100px
     opacity 0
     .player-border
@@ -216,7 +216,7 @@ export default {
     width 146px
     height 146px
     position absolute
-    top 780px
+    bottom 77px
     left 980px
     transform rotate(-20deg)
     opacity 0
@@ -225,8 +225,8 @@ export default {
     top 0
     left 0
     width 925px
-    height 1080px
+    height 100vh
     background-position center
     background-repeat no-repeat
-    background-size 100%
+    background-size cover
 </style>
