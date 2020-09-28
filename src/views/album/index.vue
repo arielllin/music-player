@@ -72,13 +72,13 @@ export default {
       isSelected: 1,
       lastSelected: null,
       img: [
-        require('@/assets/images/origin/track_0.png'),
-        require('@/assets/images/origin/track_1.png'),
-        require('@/assets/images/origin/track_2.png'),
-        require('@/assets/images/origin/track_3.png'),
-        require('@/assets/images/origin/track_4.png'),
-        require('@/assets/images/origin/track_5.png'),
-        require('@/assets/images/origin/track_6.png')
+        require('@/assets/images/origin/track_0.jpg'),
+        require('@/assets/images/origin/track_1.jpg'),
+        require('@/assets/images/origin/track_2.jpg'),
+        require('@/assets/images/origin/track_3.jpg'),
+        require('@/assets/images/origin/track_4.jpg'),
+        require('@/assets/images/origin/track_5.jpg'),
+        require('@/assets/images/origin/track_6.jpg')
       ],
       songs: [
         'Get Up Stand Up & Dub',

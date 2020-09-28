@@ -7,6 +7,9 @@ console.log('Start to build...')
 console.log(`Information -  by config "${envConfigVariable}".`, envConfig)
 
 const exportConfig = merge(require(`./build/webpack.${envConfig.BUILD_CONFIG}`), {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/music-player'
+    : '/',
   /**
    * 链式操作 (高级)
    * 可参考

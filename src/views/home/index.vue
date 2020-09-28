@@ -72,10 +72,10 @@ export default {
       currentPage: 0,
       lastPage: null,
       topTenSongs: [
-        { singer: 'Lady Gaga', img: require('@/assets/images/lady-gaga.png') },
-        { singer: 'Bob Marley', img: require('@/assets/images/Bob-Marley@2x.png') },
-        { singer: 'michael', img: require('@/assets/images/michael-jackson@2x.png') },
-        { singer: 'beetles', img: require('@/assets/images/beetle@2x.png') }
+        { singer: 'Lady Gaga', img: require('@/assets/images/lady-gaga.jpg') },
+        { singer: 'Bob Marley', img: require('@/assets/images/Bob-Marley@2x.jpg') },
+        { singer: 'michael', img: require('@/assets/images/michael-jackson@2x.jpg') },
+        { singer: 'beetles', img: require('@/assets/images/beetle@2x.jpg') }
       ],
       svgIcons: [
         'soundcloud', 'spotify', 'youtube', 'apple', 'instagram', 'facebook', 'twitter'
@@ -188,7 +188,8 @@ export default {
 
 .title
   position absolute
-  top 633px
+  transform translateY(-50%)
+  top 70%
   left 135px
   width 100%
   height 280px
@@ -219,9 +220,10 @@ export default {
 
 .playlist
   position absolute
+  transform translateY(-50%)
   color #fff
   opacity 0.9
-  top 489px
+  top 55%
   left 1378px
   &-main
     font-size 104px
@@ -238,10 +240,11 @@ export default {
   padding 26px 63px 31px 63px
   border-radius 45px
   position absolute
+  transform translateY(-50%)
   color #fff
   font-size 25px
   letter-spacing 2.5px
-  top 705px
+  top 70%
   left 1378px
   &-svg
     margin-left 10px
