@@ -25,7 +25,7 @@ $ cd music-player
 # Install dependencies
 $ npm install
 
-# Run the app
+# Run
 $ npm run dev
 ```
 
