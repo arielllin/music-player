@@ -1,38 +1,24 @@
 # music-player
 
-A live demo can be found on [this link](https://arielllin.github.io/music-player/). 
-
-![screenshot](https://github.com/arielllin/music-player/blob/dev/src/assets/images/music-player.gif)
-
-## Tech Stack
-
-* Vue.js
-* Vue Router
-* GSAP
-* Stylus
-
-## How to Use
-
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
-```bash
-# Clone this repository
-$ git clone https://github.com/arielllin/music-player.git
-
-# Go into the repository
-$ cd music-player
-
-# Install dependencies
-$ npm install
-
-# Run the app
-$ npm run dev
+## Project setup
+```
+npm install
 ```
 
-## License
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-MIT
+### Compiles and minifies for production
+```
+npm run build
+```
 
----
+### Lints and fixes files
+```
+npm run lint
+```
 
-> GitHub [@arielllin](https://github.com/arielllin)
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
