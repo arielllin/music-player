@@ -12,6 +12,11 @@ routes.push(Home)
 routes.push(Album)
 routes.push(Track)
 
+routes.push({
+  path: '*',
+  redirect: '/'
+})
+
 const router = new VueRouter({
   // mode: 'history',
   base: process.env.BASE_URL,

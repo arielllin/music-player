@@ -10,9 +10,10 @@
         <div
           class="album-img"
           :class="`album-img-${index}`"
-          :style="{ backgroundImage: 'url(' + item + ')' }"
           @click="onClickSongImg(index)"
-        />
+        >
+          <img :src="item">
+        </div>
       </div>
     </div>
     <div class="album-border" />
@@ -38,10 +39,10 @@
           }"
           @click="onClickTrack(index)"
         >
-          <div class="track-info">
+          <a class="track-info">
             <span>{{ item }}</span>
             <span>Bob Marley・1975</span>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -392,15 +393,15 @@ export default {
     opacity 0.3
   &-selected
     opacity 1
+    img
+      cursor pointer
 
 .album-img
   width 789px
   height 350px
-  background-position center
-  background-repeat no-repeat
-  background-size cover
   position absolute
   img
+    object-fit cover
     border-radius 5px
     width 100%
     height 100%

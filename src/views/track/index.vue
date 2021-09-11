@@ -137,7 +137,6 @@ export default {
   },
   methods: {
     onCloseTrack() {
-      console.log('hi')
       this.$router.back(-1)
     }
   }

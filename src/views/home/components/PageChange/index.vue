@@ -1,25 +1,29 @@
 <template>
-  <div class="index">
-    <div
-      v-for="(item, index) in indexTable"
-      :key="item.key"
-      :class="{
-        'index-slected': isCurrentPage(index),
-        'index-last-slected': isLastPage(index),
-        'index-non-slected': !isCurrentPage(index)
-      }"
-      @click="onChangeCurrentPage(index)"
-    >
-      {{ showIndex(index) }}
-    </div>
-  </div>
+  <table>
+    <tr class="index">
+      <td
+        v-for="(item, index) in indexTable"
+        :key="item.key"
+        :class="{
+          'index-slected': isCurrentPage(index),
+          'index-last-slected': isLastPage(index),
+          'index-non-slected': !isCurrentPage(index)
+        }"
+        @click="onChangeCurrentPage(index)"
+      >
+        <a>
+          {{ showIndex(index) }}
+        </a>
+      </td>
+    </tr>
+  </table>
 </template>
 
 <script>
 import gsap from 'gsap'
 
 export default {
-  name: 'PageChanging',
+  name: 'PageChange',
   props: {
     indexTable: {
       type: Number,

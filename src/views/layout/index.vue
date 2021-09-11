@@ -1,20 +1,24 @@
 <template>
   <div>
-    <Menu :show-bars="showBars" @mouseover="mouseOver" @mouseout="mouseOut">
-      <div
-        v-for="(item, index) in menu"
-        :key="index"
-        class="menu-list"
-        :class="{
-          'is-selected': isSelectedMenu(index),
-          'last-selected': lastSelected === index
-        }"
-        @mouseover="onMouseOver(index)"
-        @click="onClickMenu(index)"
-      >
-        {{ item.toUpperCase() }}
-      </div>
-    </Menu>
+    <header>
+      <Menu :show-bars="showBars" @mouseover="mouseOver" @mouseout="mouseOut">
+        <ul>
+          <li
+            v-for="(item, index) in menu"
+            :key="index"
+            class="menu-list"
+            :class="{
+              'is-selected': isSelectedMenu(index),
+              'last-selected': lastSelected === index
+            }"
+            @mouseover="onMouseOver(index)"
+            @click="onClickMenu(index)"
+          >
+            <a>{{ item.toUpperCase() }}</a>
+          </li>
+        </ul>
+      </Menu>
+    </header>
     <router-view />
   </div>
 </template>

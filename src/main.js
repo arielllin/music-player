@@ -8,8 +8,8 @@ import CSSRulePlugin from 'gsap/CSSRulePlugin'
 import CSSPlugin from 'gsap/CSSPlugin'
 gsap.registerPlugin(CSSRulePlugin, CSSPlugin)
 
-// import './permission' // permission control
 import './assets/icons/index'
+import 'normalize.css'
 
 Vue.config.productionTip = false
 

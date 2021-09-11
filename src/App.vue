@@ -5,6 +5,15 @@
 </template>
 
 <style lang="stylus">
-body
-  margin 0
+button
+  border 0
+  background-color none
+  outline none
+  cursor pointer
+a
+  cursor pointer
+ul, ol
+ list-style none
+ padding-left 0
+ margin 0
 </style>

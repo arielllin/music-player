@@ -34,41 +34,49 @@
       <div class="playlist-main">playlist</div>
       <div class="playlist-sub">TOP 10 SONGS</div>
     </div>
-    <div class="listen-button" @click="onClickAlbum">
+    <button name="button" class="listen-button" @click="onClickAlbum">
       LISTEN NOW
       <svg-icon class="listen-button-svg" icon-class="play" />
+    </button>
+    <div class="social-follow">
+      <ul class="social-follow-items">
+        <li
+          v-for="(item, index) in svgIcons"
+          :key="index"
+          class="social-follow-item"
+        >
+          <a href="">
+            <svg-icon
+              :icon-class="item"
+            />
+          </a>
+        </li>
+      </ul>
     </div>
-    <div class="footer-icons">
-      <svg-icon
-        v-for="(item, index) in svgIcons"
-        :key="index"
-        class="icon"
-        :icon-class="item"
-      />
-    </div>
-    <PageChanging
+    <PageChange
       :index-table="topTenSongs.length"
       :current-page="currentPage"
       :last-page="lastPage"
       @onChangeIndex="onChangeIndex"
     />
-    <div class="page-change" />
+    <div v-show="pageChangeShow" class="page-change" />
   </div>
 </template>
 
 <script>
-import PageChanging from './components/PageChanging'
+import PageChange from './components/PageChange'
 
 import gsap from 'gsap'
 
 export default {
   name: 'Home',
   components: {
-    PageChanging
+    PageChange
   },
   data() {
     return {
       clickLock: false,
+      pageChangeShow: false,
       currentPage: 0,
       lastPage: null,
       topTenSongs: [
@@ -142,11 +150,12 @@ export default {
       })
     },
     onClickAlbum() {
-      gsap.to('.title-main', {
-        duration: 1,
-        transform: 'translate(55%, -55%)',
-        ease: 'power2.inOut'
-      })
+      this.pageChangeShow = true
+      // gsap.to('.title-main', {
+      //   duration: 1,
+      //   transform: 'translate(55%, -55%)',
+      //   ease: 'power2.inOut'
+      // })
       gsap.to('.page-change', {
         duration: 1.5,
         'border-radius': '50%',
@@ -230,7 +239,7 @@ export default {
     letter-spacing 0px
   &-sub
     position relative
-    top -25px
+    line-height 15px
     font-size 25px
     letter-spacing 2.5px
 
@@ -249,10 +258,7 @@ export default {
   &-svg
     margin-left 10px
 
-.footer-icons
-  display flex
-  justify-content space-between
-  align-items center
+.social-follow
   position absolute
   transform translate(-50%)
   left 50%
@@ -260,6 +266,13 @@ export default {
   width 400px
   height 181px
   font-size 24px
+  &-items
+    display flex
+    position absolute
+    justify-content space-between
+    align-items center
+    width 100%
+    height 100%
 
 .page-change
   width 10px
