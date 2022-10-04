@@ -11,7 +11,7 @@ concurrency:
 jobs:
   test:
     name: Deployed
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: --max-old-space-size=6144
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

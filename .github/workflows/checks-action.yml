@@ -5,7 +5,7 @@ on:
 
 jobs:
   affected-routes:
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
     env:
       NODE_OPTIONS: --max_old_space_size=8192
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
