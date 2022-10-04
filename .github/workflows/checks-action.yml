@@ -1,0 +1,18 @@
+name: Set Checks Action
+
+on:
+  - pull_request
+
+jobs:
+  affected-routes:
+    runs-on: [self-hosted]
+    env:
+      NODE_OPTIONS: --max_old_space_size=8192
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: LouisBrunner/checks-action@v1.1.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: E2E Test
+          status: queued
+      
