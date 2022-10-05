@@ -54,7 +54,4 @@ jobs:
           status: completed
           conclusion: ${{ job.status }}
           output: |
-            {"summary":
-              ### test ${{ job.status }}
-              [Test job](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
-            }
+            {"summary":"### test ${{ job.status }}\n[Test job](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"}
