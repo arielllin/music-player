@@ -28,14 +28,30 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.check_run.pull_requests[0].head.sha }}
-          check_id: ${{ steps.init.outputs.check_id }}
+          name: E2E Test
           status: in_progress
+
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
 
       - uses: LouisBrunner/checks-action@v1.1.1
         if: success() || failure()
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           sha: ${{ github.event.check_run.pull_requests[0].head.sha }}
-          check_id: ${{ steps.init.outputs.check_id }}
+          name: E2E Test
           status: completed
           conclusion: ${{ job.status }}
+          output: |
+            {"summary":"### test ${{ job.status }}\n[Test job](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"}
