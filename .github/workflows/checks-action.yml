@@ -10,9 +10,17 @@ jobs:
       NODE_OPTIONS: --max_old_space_size=8192
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - uses: actions/checkout@v1
+
+  set-E2E-test-check:
+    runs-on: ubuntu-latest
+    steps:
       - uses: LouisBrunner/checks-action@v1.1.1
+        id: init
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           name: E2E Test
           status: queued
+          output: |
+            {"summary":"Some warnings in README.md"}
       
