@@ -1,0 +1,21 @@
+name: Set Checks Action Two
+
+on:
+  - pull_request
+
+jobs:
+  affected-routes-two:
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max_old_space_size=8192
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: LouisBrunner/checks-action@v1.1.1
+        id: init
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: E2E Test two
+          status: queued
+          output: |
+            {"summary":"Some warnings in README.md"}
+      
